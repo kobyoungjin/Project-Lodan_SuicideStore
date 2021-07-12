@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         //  저는 이재형입니다.
        //허다연입니다
         //저는 고병진입니다.kbj
+        // 아아아아아아악가각각 ..09:30
     }
 
     // Update is called once per frame
