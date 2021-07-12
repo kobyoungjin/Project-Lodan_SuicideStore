@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //허다연입니다
     }
 
     // Update is called once per frame
