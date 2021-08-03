@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - "\uC8FC\uC778\uACF5"
+  - "\uC8FC\uC778\uC7A5"
+  - "\uD574\uB9AC\uC2A8"
   layers:
   - Default
   - TransparentFX
@@ -40,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 1
+    uniqueID: 3699194681
     locked: 0
