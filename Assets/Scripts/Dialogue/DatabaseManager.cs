@@ -10,9 +10,7 @@ public class DatabaseManager : MonoBehaviour
 
     [SerializeField] Text npcText;
     [SerializeField] Text npcName;
-    Image image;
-    Player player;
-
+    
     [SerializeField] string csv_FileName;
 
     List<Dialogue> dialogue = new List<Dialogue>();
@@ -40,6 +38,8 @@ public class DatabaseManager : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(TypeNpcText(npcText.text = dialogue[i].context));
+
+        changeColor(i);
     }
 
     IEnumerator TypeNpcText(string npcText)  // 한글자씩 나오게 생성
@@ -53,8 +53,26 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public Dialogue[] getDialogue()  // dialogue 리스트 반환
+    public Dialogue[] getDialogue()
     {
         return dialogue.ToArray();
     }
+
+    public void changeColor(int i) // tag로 대화 UI 투명도 색 조절
+    {
+        GameObject owner = GameObject.FindGameObjectWithTag("주인장");
+        owner.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        if (!(dialogue[i].name == owner.tag))
+        {
+            owner.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
+        }
+
+        GameObject farmer = GameObject.FindGameObjectWithTag("해리슨");
+        farmer.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        if (!(dialogue[i].name == farmer.tag))
+        {
+            farmer.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
+        }
+    }
+
 }
