@@ -3,23 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager instance;
+    CharacterManager manager;
 
-    [SerializeField] Text npcText;
-    [SerializeField] Text npcName;
+    [SerializeField] TextMeshProUGUI npcText;
+    [SerializeField] TextMeshProUGUI npcName;
     
-    [SerializeField] string csv_FileName;
+    [SerializeField] string csv_FileName;  
 
-    List<Dialogue> dialogue = new List<Dialogue>();
+    List<Dialogue> dialogue = new List<Dialogue>();  //대사 저장 리스트
 
     public static bool isFinish = false;  // 저장이 끝났는지 판별
 
     void Awake()
     {
-        if (instance == null)
+        manager = GameObject.FindObjectOfType<CharacterManager>().GetComponent<CharacterManager>();
+
+        if (instance == null)  // DatabaseManager가 인스턴스 상태가 아니면
         {
             instance = this;
             DialogueParser theParser = GetComponent<DialogueParser>();
@@ -34,12 +38,18 @@ public class DatabaseManager : MonoBehaviour
 
     public void ShowText(int i)  // 텍스트 UI에 대사 삽입
     {
+        if (i > 36) //대사를 끝까지 출력하면
+        {
+            End();  
+            return;
+        }
         npcName.text = dialogue[i].name;
-
+        
         StopAllCoroutines();
         StartCoroutine(TypeNpcText(npcText.text = dialogue[i].context));
+        
 
-        changeColor(i);
+        manager.ChangeColor(i);  // 캐릭터 색조절
     }
 
     IEnumerator TypeNpcText(string npcText)  // 한글자씩 나오게 생성
@@ -48,31 +58,20 @@ public class DatabaseManager : MonoBehaviour
 
         foreach (var letter in npcText)
         {
-            this.npcText.text += letter;
+            this.npcText.text += letter;   //한글자씩 생성
             yield return new WaitForSeconds(0.1f);
         }
     }
 
-    public Dialogue[] getDialogue()
+    private void End()  // 빈공간으로 만든다.
     {
-        return dialogue.ToArray();
+        npcText.text = string.Empty;
     }
 
-    public void changeColor(int i) // tag로 대화 UI 투명도 색 조절
+    public Dialogue[] getDialogue() // 대사 get함수
     {
-        GameObject owner = GameObject.FindGameObjectWithTag("주인장");
-        owner.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        if (!(dialogue[i].name == owner.tag))
-        {
-            owner.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
-        }
-
-        GameObject farmer = GameObject.FindGameObjectWithTag("해리슨");
-        farmer.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        if (!(dialogue[i].name == farmer.tag))
-        {
-            farmer.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
-        }
+        return dialogue.ToArray();  // 리스트를 dialogue[]형태로
     }
-
 }
+
+

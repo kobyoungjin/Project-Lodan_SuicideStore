@@ -8,7 +8,7 @@ public class ClickTigger : MonoBehaviour
 
     public void Trigger()  // 클릭할때마다 대사 변경
     { 
-        var data = FindObjectOfType<DatabaseManager>();
+        var data = FindObjectOfType<DatabaseManager>();  
         data.ShowText(clickNum);
        
         clickNum++;
