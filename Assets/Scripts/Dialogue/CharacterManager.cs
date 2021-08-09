@@ -15,7 +15,7 @@ public class CharacterManager : MonoBehaviour
     {
         data = GameObject.FindObjectOfType<DatabaseManager>().GetComponent<DatabaseManager>();
 
-        Dialogue[] dialogues = data.getDialogue();
+        Dialogue[] dialogues = data.GetDialogue();
         for (int i = 0; i < dialogues.Length; i++)
         {
             dialogue.Add(dialogues[i]);  //dialogue 리스트에 DatabaseManager에서 가져온 대사 추가

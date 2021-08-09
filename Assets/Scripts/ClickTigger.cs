@@ -9,15 +9,16 @@ public class ClickTigger : MonoBehaviour
     public GameObject[] storages;
     private int clickNum = 1;
     private bool rightBtn;
-    private bool isBack;
     
     GameObject mainStorage;
     GameObject storageUI;
+    GameObject backGround;
 
     private void Start()
     {
         mainStorage = GameObject.FindGameObjectWithTag("MainStorage").gameObject;
         storageUI = GameObject.FindGameObjectWithTag("Storage").gameObject;
+        backGround = GameObject.FindGameObjectWithTag("BackGround").gameObject;
 
         storageUI.SetActive(false);  // 저장소 버튼UI 비활성화
     }
@@ -33,8 +34,10 @@ public class ClickTigger : MonoBehaviour
     //해당 storageIndex 값에 따라 선반 활성화
     private void ShowShelf()
     {
+        backGround.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
         mainStorage.SetActive(false);  // mainStorage(솥이 있는 창) 비활성화 
         storageUI.SetActive(true);   // storageIndex가 0이면 선반 UI 활성화
+
         switch (storageIndex)
         {
             case 0:
@@ -49,53 +52,63 @@ public class ClickTigger : MonoBehaviour
         }
     }
     
-    // 재료를 가져오는 선반 UI비활성화
-    public void OnClickCloseShelf() 
+    private void NextStorage()
     {
-        storages[storageIndex].SetActive(false);        
+        if (storageIndex > 2)  // storageIndex가 2이상이 되면 다시 0으로 만든다.
+        {
+            storageIndex %= 3;
+        }
+        else if (storageIndex < 0)  // storageIndex가 0보다 작아지면 인덱스를 2로 만든다.
+        {
+            storageIndex *= -2;
+        }
+
+        ShowShelf();
+    }
+
+    // 재료를 가져오는 선반 UI비활성화
+    public void OnClickCloseShelf()
+    {
+        backGround.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        storages[storageIndex].SetActive(false);
         storageUI.SetActive(false);
         mainStorage.SetActive(true);
     }
 
-    private void NextStorage()
-    {
-       if(storageIndex > 3)
-
-        if (rightBtn)
-        {
-            storages[storageIndex - 1].SetActive(false);
-            storages[storageIndex].SetActive(true);
-        }
-        else
-        { 
-            storages[storageIndex + 1].SetActive(false);
-            storages[storageIndex].SetActive(true);
-        }
-    }
-
-    public void IsLeftShelf()  // 왼쪽선반 클릭시 storageIndex = 0 값입력
+    //왼쪽선반 클릭시 storageIndex = 0 값입력
+    public void IsLeftShelf()  
     {
         storageIndex = 0;
         ShowShelf();
     }
-    public void IsMiddleShelf()  // 가운데선반 클릭시 storageIndex = 1 값입력
+
+    // 가운데선반 클릭시 storageIndex = 1 값입력
+    public void IsMiddleShelf()  
     {
         storageIndex = 1;
         ShowShelf();
     }
-    public void IsRightShelf()  // 오른쪽선반 클릭시 storageIndex = 2 값입력
+
+    // 오른쪽선반 클릭시 storageIndex = 2 값입력
+    public void IsRightShelf()  
     {
         storageIndex = 2;
         ShowShelf();
     }
+
+    // 왼쪽인지
     public void IsLeft()
     {
-        storageIndex--;
+        storages[storageIndex].SetActive(false); // 현재 선반 비활성화
+        --storageIndex;
         NextStorage();
     }
+
+    // 오른쪽인지
     public void IsRight()
     {
-        storageIndex++;
+        storages[storageIndex].SetActive(false);  // 현재 선반 비활성화
+        ++storageIndex;
         NextStorage();
     }
 

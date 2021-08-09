@@ -8,6 +8,7 @@ TagManager:
   - "\uD574\uB9AC\uC2A8"
   - MainStorage
   - Storage
+  - BackGround
   layers:
   - Default
   - TransparentFX

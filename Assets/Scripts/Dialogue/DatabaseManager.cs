@@ -68,7 +68,7 @@ public class DatabaseManager : MonoBehaviour
         npcText.text = string.Empty;
     }
 
-    public Dialogue[] getDialogue() // 대사 get함수
+    public Dialogue[] GetDialogue() // 대사 get함수
     {
         return dialogue.ToArray();  // 리스트를 dialogue[]형태로
     }
