@@ -282,7 +282,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 207561665}
-        m_TargetAssemblyTypeName: ClickTigger, Assembly-CSharp
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
         m_MethodName: Trigger
         m_Mode: 1
         m_Arguments:
@@ -340,10 +340,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 207561660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e4afcca155eb74c9affc8d71d669a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 244e11cca55b24044b67dfa2bceb704f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storages: []
 --- !u!1 &254944638
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &505825393
 MonoBehaviour:
   m_ObjectHideFlags: 0

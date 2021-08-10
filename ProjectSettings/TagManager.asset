@@ -9,6 +9,7 @@ TagManager:
   - MainStorage
   - Storage
   - BackGround
+  - Item
   layers:
   - Default
   - TransparentFX

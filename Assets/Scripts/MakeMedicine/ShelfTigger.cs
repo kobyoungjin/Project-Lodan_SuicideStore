@@ -3,40 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickTigger : MonoBehaviour
+public class ShelfTigger : MonoBehaviour
 {
+    GameObject mainStorage;
+    GameObject backGround;
+    Slot slot;
+
     private int storageIndex;
     public GameObject[] storages;
-    private int clickNum = 1;
     private bool rightBtn;
-    
-    GameObject mainStorage;
-    GameObject storageUI;
-    GameObject backGround;
+    private GameObject storageUI;
 
     private void Start()
     {
         mainStorage = GameObject.FindGameObjectWithTag("MainStorage").gameObject;
-        storageUI = GameObject.FindGameObjectWithTag("Storage").gameObject;
         backGround = GameObject.FindGameObjectWithTag("BackGround").gameObject;
+        storageUI = GameObject.FindGameObjectWithTag("Storage").gameObject;
 
         storageUI.SetActive(false);  // 저장소 버튼UI 비활성화
-    }
-    
-    public void Trigger()  // 클릭할때마다 대사 변경
-    { 
-        var data = FindObjectOfType<DatabaseManager>();  
-        data.ShowText(clickNum);
-       
-        clickNum++;
     }
 
     //해당 storageIndex 값에 따라 선반 활성화
     private void ShowShelf()
     {
-        backGround.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
+        backGround.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);  // 배경 이미지 선반을 강조하도록 약간 그림자처럼 색상변경
         mainStorage.SetActive(false);  // mainStorage(솥이 있는 창) 비활성화 
-        storageUI.SetActive(true);   // storageIndex가 0이면 선반 UI 활성화
+        storageUI.SetActive(true);   // 장바구니 UI 활성화
 
         switch (storageIndex)
         {
@@ -69,7 +61,7 @@ public class ClickTigger : MonoBehaviour
     // 재료를 가져오는 선반 UI비활성화
     public void OnClickCloseShelf()
     {
-        backGround.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        backGround.GetComponent<Image>().color = new Color(1, 1, 1, 1);  // 원래 배경 색상으로 변경
         storages[storageIndex].SetActive(false);
         storageUI.SetActive(false);
         mainStorage.SetActive(true);
@@ -111,5 +103,4 @@ public class ClickTigger : MonoBehaviour
         ++storageIndex;
         NextStorage();
     }
-
 }
