@@ -411,13 +411,27 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 505825394}
+  - component: {fileID: 505825393}
   m_Layer: 0
-  m_Name: UI Manager
+  m_Name: ChangeCursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &505825393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505825392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d13f6cb2e1bb84f88a64910bfa81d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorImg: {fileID: 2800000, guid: 0e57dfb0e1674224dad787d3b7998681, type: 3}
 --- !u!4 &505825394
 Transform:
   m_ObjectHideFlags: 0

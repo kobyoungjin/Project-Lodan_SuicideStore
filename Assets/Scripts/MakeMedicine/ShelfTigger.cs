@@ -17,7 +17,7 @@ public class ShelfTigger : MonoBehaviour
     {
         mainStorage = GameObject.FindGameObjectWithTag("MainStorage");
         backGround = GameObject.FindGameObjectWithTag("BackGround");
-        storageUI = GameObject.FindGameObjectWithTag("Storage");
+        storageUI = GameObject.Find("Storage").transform.GetChild(3).gameObject;
 
         storageUI.SetActive(false);  // 저장소 버튼UI 비활성화
     }
