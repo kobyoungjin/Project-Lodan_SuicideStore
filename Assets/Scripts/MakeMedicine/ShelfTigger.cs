@@ -7,7 +7,6 @@ public class ShelfTigger : MonoBehaviour
 {
     GameObject mainStorage;
     GameObject backGround;
-    Slot slot;
 
     private int storageIndex;
     public GameObject[] storages;
@@ -16,9 +15,9 @@ public class ShelfTigger : MonoBehaviour
 
     private void Start()
     {
-        mainStorage = GameObject.FindGameObjectWithTag("MainStorage").gameObject;
-        backGround = GameObject.FindGameObjectWithTag("BackGround").gameObject;
-        storageUI = GameObject.FindGameObjectWithTag("Storage").gameObject;
+        mainStorage = GameObject.FindGameObjectWithTag("MainStorage");
+        backGround = GameObject.FindGameObjectWithTag("BackGround");
+        storageUI = GameObject.FindGameObjectWithTag("Storage");
 
         storageUI.SetActive(false);  // 저장소 버튼UI 비활성화
     }

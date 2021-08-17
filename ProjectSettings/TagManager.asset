@@ -10,6 +10,12 @@ TagManager:
   - Storage
   - BackGround
   - Item
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - delete
   layers:
   - Default
   - TransparentFX
