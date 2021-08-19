@@ -11,11 +11,12 @@ public class Ingredient : MonoBehaviour
 
     void Start()
     {
-        slotBar = GameObject.FindObjectOfType<IngredientSlot>().transform.GetComponentInParent<IngredientSlot>();
+        slotBar = FindObjectOfType<IngredientSlot>().transform.GetComponentInParent<IngredientSlot>();
 
         ingredientImage = GetComponent<Image>();
+        ingredientImage.alphaHitTestMinimumThreshold = 0.1f;
         btn = GetComponent<Button>();
-
+      
         if (btn == null)
             btn = GetComponentInChildren<Button>();
 

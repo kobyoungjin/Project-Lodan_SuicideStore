@@ -8,7 +8,7 @@ public class DialogueParser : MonoBehaviour
     public Dialogue[] Parse(string _CSVFileName) // 파서
     {
         List<Dialogue> dialogueList = new List<Dialogue>(); //대사 리스트 생성
-        TextAsset csvData = Resources.Load<TextAsset>(_CSVFileName);
+        TextAsset csvData = Resources.Load<TextAsset>("Dialogue/"+_CSVFileName);
 
         string[] data = csvData.text.Split(new char[] {'\n'});  // 엔터 단위로 끊어서 저장
         
