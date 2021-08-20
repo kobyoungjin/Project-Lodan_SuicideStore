@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 104793861}
   - component: {fileID: 104793860}
   m_Layer: 0
-  m_Name: "\uAD11\uB300 \uBC84\uC12F"
+  m_Name: Clown Mushroom
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 115688551}
   - component: {fileID: 115688550}
   m_Layer: 0
-  m_Name: "\uD2A4\uB9BD \uBFCC\uB9AC"
+  m_Name: Tulip Roots
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 181224696}
   - component: {fileID: 181224695}
   m_Layer: 0
-  m_Name: "\uC18C\uB77C\uAC8C \uB4F1\uAECD\uC9C8"
+  m_Name: Hermit Crab Shell
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1205,7 +1205,7 @@ GameObject:
   - component: {fileID: 314084707}
   - component: {fileID: 314084706}
   m_Layer: 0
-  m_Name: "\uC804\uAC08 \uAF2C\uB9AC"
+  m_Name: Scorpion Tail
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1713,7 +1713,7 @@ GameObject:
   - component: {fileID: 608998180}
   - component: {fileID: 608998179}
   m_Layer: 0
-  m_Name: "\uC5FC\uC18C \uBFD4"
+  m_Name: Goat Horns
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1878,7 +1878,7 @@ GameObject:
   - component: {fileID: 624864571}
   - component: {fileID: 624864574}
   m_Layer: 0
-  m_Name: "\uC9C0\uD558\uC218"
+  m_Name: Underground Water
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2012,7 +2012,7 @@ GameObject:
   - component: {fileID: 662577538}
   - component: {fileID: 662577537}
   m_Layer: 0
-  m_Name: "\uC5D0\uBA54\uB784\uB4DC \uD560\uBBF8\uAF43"
+  m_Name: Emerald Walrus Flower
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2596,7 +2596,7 @@ GameObject:
   - component: {fileID: 1151934437}
   - component: {fileID: 1151934436}
   m_Layer: 0
-  m_Name: "\uAC80\uC740 \uCC3B\uC78E"
+  m_Name: Black Locust
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2730,7 +2730,7 @@ GameObject:
   - component: {fileID: 1166381056}
   - component: {fileID: 1166381055}
   m_Layer: 0
-  m_Name: " \uD53C \uACB0\uC815"
+  m_Name: Blood Crystal
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2864,7 +2864,7 @@ GameObject:
   - component: {fileID: 1276659261}
   - component: {fileID: 1276659260}
   m_Layer: 0
-  m_Name: "\uD22C\uBA85 \uC124\uD0D5\uC870\uAC01"
+  m_Name: Transparent Sugar Cubes
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3029,7 +3029,7 @@ GameObject:
   - component: {fileID: 1308233328}
   - component: {fileID: 1308233327}
   m_Layer: 0
-  m_Name: "\uD478\uB978 \uB77C\uBCA4\uB354"
+  m_Name: Blue Lavender
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3163,7 +3163,7 @@ GameObject:
   - component: {fileID: 1468024965}
   - component: {fileID: 1468024964}
   m_Layer: 0
-  m_Name: "\uC18C\uAE08 \uACB0\uC815"
+  m_Name: Salt Crystals
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3297,7 +3297,7 @@ GameObject:
   - component: {fileID: 1488306740}
   - component: {fileID: 1488306739}
   m_Layer: 0
-  m_Name: "\uC120\uC778\uC7A5 \uAC00\uC2DC"
+  m_Name: Cactus Thorns
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3431,7 +3431,7 @@ GameObject:
   - component: {fileID: 1542850611}
   - component: {fileID: 1542850610}
   m_Layer: 0
-  m_Name: "\uBD89\uC740 \uC7AC"
+  m_Name: Red Ash
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3813,7 +3813,7 @@ GameObject:
   - component: {fileID: 1615592486}
   - component: {fileID: 1615592485}
   m_Layer: 0
-  m_Name: "\uC2DC\uB4E0 \uC544\uBAAC\uB4DC"
+  m_Name: Withered Almonds
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4066,7 +4066,7 @@ GameObject:
   - component: {fileID: 1916585977}
   - component: {fileID: 1916585976}
   m_Layer: 0
-  m_Name: "\uC816\uC740 \uBC00\uAC00\uB8E8"
+  m_Name: Wet Flour
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4317,7 +4317,7 @@ GameObject:
   - component: {fileID: 2004149382}
   - component: {fileID: 2004149385}
   m_Layer: 0
-  m_Name: "\uD574\uBC14\uB77C\uAE30 \uC528\uC557"
+  m_Name: Sunflower Seeds
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4451,7 +4451,7 @@ GameObject:
   - component: {fileID: 2014168908}
   - component: {fileID: 2014168907}
   m_Layer: 0
-  m_Name: "\uB3C4\uD1A0\uB9AC \uBD84\uB9D0"
+  m_Name: Acorn Powder
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4661,7 +4661,7 @@ GameObject:
   - component: {fileID: 2058485599}
   - component: {fileID: 2058485602}
   m_Layer: 0
-  m_Name: "\uAE00\uB85D\uC2DC\uB2C8\uC544 \uBD84\uB9D0"
+  m_Name: Gloxinia Powder
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4862,6 +4862,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077230991}
   m_CullTransparentMesh: 1
+--- !u!1 &2079686853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2079686856}
+  - component: {fileID: 2079686855}
+  - component: {fileID: 2079686854}
+  m_Layer: 0
+  m_Name: IngredientDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2079686854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079686853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2afedbbee28a9247afce501bc5b0c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyIngredientData: HarisonParse
+--- !u!114 &2079686855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079686853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306ccf01da9ebb84ba6557d108f19c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2079686856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079686853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 681.4035, y: 107.934906, z: -81.429085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2143841289
 GameObject:
   m_ObjectHideFlags: 0
@@ -4876,7 +4933,7 @@ GameObject:
   - component: {fileID: 2143841292}
   - component: {fileID: 2143841291}
   m_Layer: 0
-  m_Name: "\uBD88 \uACB0\uC815"
+  m_Name: Fire Crystal
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

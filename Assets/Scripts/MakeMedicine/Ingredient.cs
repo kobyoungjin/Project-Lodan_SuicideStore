@@ -8,32 +8,38 @@ public class Ingredient : MonoBehaviour
     private IngredientSlot slotBar;
     public Image ingredientImage;
     private Button btn;
+    private IngredientDatabase data;
 
     void Start()
     {
         slotBar = FindObjectOfType<IngredientSlot>().transform.GetComponentInParent<IngredientSlot>();
+        data = GameObject.FindObjectOfType<IngredientDatabase>().GetComponent<IngredientDatabase>();
 
         ingredientImage = GetComponent<Image>();
         ingredientImage.alphaHitTestMinimumThreshold = 0.1f;
         btn = GetComponent<Button>();
       
-        if (btn == null)
+        if (btn == null)  // 버튼이 없으면 오브젝트의 자식에서 버튼 컴퍼넌트를 찾는다.
             btn = GetComponentInChildren<Button>();
 
-        if(btn.gameObject.CompareTag("delete"))
+        if(btn.gameObject.CompareTag("delete"))  // 버튼tag가 delete면 장바구니에 저장된 오브젝트를 삭제하는 함수를 불러온다.
             btn.onClick.AddListener(DeleteIngredient);
-        else
+        else  // 장바구니에 재료를 더하는 함수를 불러온다.
             btn.onClick.AddListener(AddIngredient);
     }
 
+    // 장바구니에 재료를 추가하는 함수
     public void AddIngredient()
     {
         slotBar.AddingSlotBar(this);
     }
 
+    // 장바구니에 재료를 삭제하는 함수
     public void DeleteIngredient()
     {
-        slotBar.RemovingSlotBar(this);
+        int value = data.GetIngredientData(gameObject.GetComponent<Image>().sprite.name);
+        slotBar.score -= value;
+
         Destroy(gameObject);
     }
 }
