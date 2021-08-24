@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IngredientDatabase : MonoBehaviour
 {
-    public static IngredientDatabase instance;
+    private static IngredientDatabase instance;
 
     [SerializeField] string storyIngredientData;
     Dictionary<string, int> ingredientDic = new Dictionary<string, int>();
@@ -36,7 +36,7 @@ public class IngredientDatabase : MonoBehaviour
             value = ingredientDic[name];  // 해당 이름의 value값 저장
         }
         else
-            Debug.Log("잘못된 이름입니다");  // 이름이 없으면 디버그 로그띄우기
+            Debug.Log("잘못된 재료 이름입니다");  // 맞는 이름이 없으면 디버그 로그띄우기
 
         return value;
     }

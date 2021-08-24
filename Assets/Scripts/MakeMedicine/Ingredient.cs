@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Ingredient : MonoBehaviour
 {
     private IngredientSlot slotBar;
-    public Image ingredientImage;
     private Button btn;
     private IngredientDatabase data;
+    public Image ingredientImage;
 
     void Start()
     {
@@ -16,7 +16,6 @@ public class Ingredient : MonoBehaviour
         data = GameObject.FindObjectOfType<IngredientDatabase>().GetComponent<IngredientDatabase>();
 
         ingredientImage = GetComponent<Image>();
-        ingredientImage.alphaHitTestMinimumThreshold = 0.1f;
         btn = GetComponent<Button>();
       
         if (btn == null)  // 버튼이 없으면 오브젝트의 자식에서 버튼 컴퍼넌트를 찾는다.
