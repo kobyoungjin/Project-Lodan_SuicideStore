@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -8,12 +9,12 @@ public class ShowDialogue : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI npcText;
     [SerializeField] TextMeshProUGUI npcName;
-    CharacterManager manager;
-    DatabaseManager database;
+    private CharacterManager manager;
+    private DatabaseManager database;
     private Button btn;
 
     private int clickNum;  // 몇번째 대사인지 구별변수 
-    bool isRead;  // 대사가 이미 나타나고 있는지 판별하는 변수(true면 한글자씩 나오게)
+    private bool isRead;  // 대사가 이미 나타나고 있는지 판별하는 변수(true면 한글자씩 나오게)
 
     List<Dialogue> dialogue = new List<Dialogue>();
 
@@ -53,7 +54,7 @@ public class ShowDialogue : MonoBehaviour
     {
         if (i > 36) //대사를 끝까지 출력하면
         {
-            End();
+            EndAndNextScene();
             return;
         }
         npcName.text = dialogue[i].name;
@@ -93,8 +94,9 @@ public class ShowDialogue : MonoBehaviour
     }
 
     // 대사를 다하면 빈공간으로 만드는 함수.
-    private void End()  
+    private void EndAndNextScene()  
     {
         npcText.text = string.Empty;
+        SceneManager.LoadScene("MedicineScene");
     }
 }
