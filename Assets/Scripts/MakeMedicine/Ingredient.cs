@@ -41,4 +41,11 @@ public class Ingredient : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    public void AllDelete()
+    {
+        slotBar.score = 0;
+        for (int i=0; i< slotBar.transform.childCount; i++)
+            Destroy(slotBar.transform.GetChild(i).gameObject);
+    }
 }
