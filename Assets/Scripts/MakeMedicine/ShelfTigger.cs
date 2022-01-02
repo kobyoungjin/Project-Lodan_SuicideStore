@@ -66,7 +66,7 @@ public class ShelfTigger : MonoBehaviour
     {
         if (shelf.btn.name == "Back(ButtonMesh)")  // 버튼 이름이 back버튼이면 선반UI를 닫는다. 
             OnClickCloseShelf();
-        else  // 이외는 옆으로 넘어가는 버튼으로 생각한다.
+        else
             IsNext(shelf);
     }
 
@@ -98,9 +98,9 @@ public class ShelfTigger : MonoBehaviour
             storageUI.transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        if(storageIndex == 0)  // 맨왼쪽 선반이면 왼쪽으로 넘어가는 버튼 비활성화
+        if(storageIndex == 0)
             storageUI.transform.GetChild(2).gameObject.SetActive(false);
-        else if(storageIndex == 2)  // 맨오른쪽 선반이면 오른쪽으로 넘어가는 버튼 비활성화
+        else if(storageIndex == 2)
             storageUI.transform.GetChild(1).gameObject.SetActive(false);
     }
 }

@@ -9,9 +9,6 @@ public class ShowDialogue : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI npcText;
     [SerializeField] TextMeshProUGUI npcName;
-
-    GameObject harisonScene;
-    GameObject makeMedicineScene;
     private CharacterManager manager;
     private DatabaseManager database;
     private Button btn;
@@ -23,14 +20,11 @@ public class ShowDialogue : MonoBehaviour
 
     private void Start()
     {
-        harisonScene = GameObject.Find("Harison Canvas").transform.GetChild(0).gameObject;
-        makeMedicineScene = GameObject.Find("MakeRoom Canvas").transform.GetChild(0).gameObject;
         manager = GameObject.FindObjectOfType<CharacterManager>().GetComponent<CharacterManager>();
         database = GameObject.FindObjectOfType<DatabaseManager>().GetComponent<DatabaseManager>();
         btn = GetComponent<Button>();
         clickNum = 2;
         isRead = true;
-        //makeMedicineScene.gameObject.SetActive(false);
 
         Dialogue[] dialogues = database.GetDialogue();
         for (int i = 0; i < dialogues.Length; i++)
@@ -58,20 +52,11 @@ public class ShowDialogue : MonoBehaviour
     // 대사를 보여주는 함수
     public void ShowText(int i)  
     {
-        if (i > 36) // 대사를 끝까지 출력하면
+        if (i > 36) //대사를 끝까지 출력하면
         {
             EndAndNextScene();
             return;
         }
-        else if(i == 34)  // 약물제조 전 대사이면
-        {
-            clickNum = i+1;
-
-            harisonScene.gameObject.SetActive(false);
-            makeMedicineScene.gameObject.SetActive(true);
-            return;
-        }
-
         npcName.text = dialogue[i].name;
 
         StopAllCoroutines();
@@ -112,12 +97,6 @@ public class ShowDialogue : MonoBehaviour
     private void EndAndNextScene()  
     {
         npcText.text = string.Empty;
-    }
-
-    // 대사 스킵함수
-    public void skip()
-    {
-        clickNum = 31;
-        ShowText(clickNum);
+        SceneManager.LoadScene("MedicineScene");
     }
 }
