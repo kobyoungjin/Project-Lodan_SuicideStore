@@ -61,7 +61,7 @@ public class ShowDialogue : MonoBehaviour
         {
             clickNum = i + 1;
 
-            SceneManager.LoadScene("HarisonScene");
+            SceneManager.LoadScene("MedicineScene");
             return;
         }
 
@@ -110,6 +110,7 @@ public class ShowDialogue : MonoBehaviour
 
     public void skip()
     {
-        clickNum = 34;
+        clickNum = 31;
+        ShowText(clickNum);
     }
 }
