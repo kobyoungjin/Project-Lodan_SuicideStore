@@ -24,7 +24,7 @@ public class ShelfTigger : MonoBehaviour
     //해당 storageIndex 값에 따라 선반 활성화
     public void ShowShelf(Shelf shelf)
     {
-        backGround.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);  // 배경 이미지 선반을 강조하도록 약간 그림자처럼 색상변경
+        //backGround.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);  // 배경 이미지 선반을 강조하도록 약간 그림자처럼 색상변경
         mainStorage.SetActive(false);  // mainStorage(솥이 있는 창) 비활성화 
         storageUI.SetActive(true);
 
@@ -55,7 +55,7 @@ public class ShelfTigger : MonoBehaviour
     // 재료를 가져오는 선반 UI비활성화
     public void OnClickCloseShelf()
     {
-        backGround.GetComponent<Image>().color = new Color(1, 1, 1, 1);  // 원래 배경 색상으로 변경
+        //backGround.GetComponent<Image>().color = new Color(1, 1, 1, 1);  // 원래 배경 색상으로 변경
         storageUI.SetActive(false);  // 장바구니 UI 비활성화
         mainStorage.SetActive(true);
         storage.transform.GetChild(storageIndex).gameObject.SetActive(false);  // 현재 켜진 선반 비활성화
