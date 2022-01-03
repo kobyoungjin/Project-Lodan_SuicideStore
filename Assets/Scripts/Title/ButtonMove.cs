@@ -30,10 +30,10 @@ public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 SceneManager.LoadScene("HarisonScene");
                 break;
             case "LoadGame":
-                SceneManager.LoadScene("MedicineScene");
+                SceneManager.LoadScene("");
                 break;
             case "Settings":
-                SceneManager.LoadScene("MedicineScene");
+                SceneManager.LoadScene("");
                 break;
             default:
 #if UNITY_EDITOR
