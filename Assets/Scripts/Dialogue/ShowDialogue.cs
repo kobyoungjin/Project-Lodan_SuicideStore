@@ -57,6 +57,14 @@ public class ShowDialogue : MonoBehaviour
             EndAndNextScene();
             return;
         }
+        else if (i == 34)  // 약물제조 전 대사이면
+        {
+            clickNum = i + 1;
+
+            SceneManager.LoadScene("HarisonScene");
+            return;
+        }
+
         npcName.text = dialogue[i].name;
 
         StopAllCoroutines();
@@ -98,5 +106,10 @@ public class ShowDialogue : MonoBehaviour
     {
         npcText.text = string.Empty;
         SceneManager.LoadScene("MedicineScene");
+    }
+
+    public void skip()
+    {
+        clickNum = 34;
     }
 }
