@@ -6,7 +6,7 @@ public class IngredientDatabase : MonoBehaviour
 {
     private static IngredientDatabase instance;
 
-    [SerializeField] string storyIngredientData;
+    [SerializeField] string storyIngredientData;  // 여기서 모든 데이터 관리해야할듯?
     Dictionary<string, int> ingredientDic = new Dictionary<string, int>();
 
     public static bool isFinish = false;  // 저장이 끝났는지 판별
