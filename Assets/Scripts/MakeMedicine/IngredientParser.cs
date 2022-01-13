@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngredientParsor : MonoBehaviour
+public class IngredientParser : MonoBehaviour
 {
-    public IngredientData[] Parse(string storyIngredientData) // 파서
+    public IngredientData[] Parse(TextAsset csvData) // 파서
     {
         List<IngredientData> IngredientList = new List<IngredientData>(); //대사 리스트 생성
-        TextAsset csvData = Resources.Load<TextAsset>("IngredientData/" + storyIngredientData);
 
         string[] data = csvData.text.Split(new char[] { '\n' });  // 엔터 단위로 끊어서 저장
 

@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
-    DatabaseManager database;
+    DialogueDatabase database;
 
     GameObject owner;   //주인장
     GameObject farmer;  //해리슨
     
-    List<Dialogue> dialogue = new List<Dialogue>();
+    List<DialogueData> dialogue = new List<DialogueData>();
 
     void Start()
     {
-        database = GameObject.FindObjectOfType<DatabaseManager>().GetComponent<DatabaseManager>();
+        database = GameObject.FindObjectOfType<DialogueDatabase>().GetComponent<DialogueDatabase>();
 
-        Dialogue[] dialogues = database.GetDialogue();
+        DialogueData[] dialogues = database.GetDialogue();
         for (int i = 0; i < dialogues.Length; i++)
         {
             dialogue.Add(dialogues[i]);  //dialogue 리스트에 DatabaseManager에서 가져온 대사 추가

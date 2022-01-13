@@ -27,7 +27,7 @@ public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         switch(this.gameObject.name)
         {
             case "NewGame":
-                SceneManager.LoadScene("HarisonScene");
+                SceneManager.LoadScene("DialogueScene");
                 break;
             case "LoadGame":
                 SceneManager.LoadScene("");

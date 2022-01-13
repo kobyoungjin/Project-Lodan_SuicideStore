@@ -36,7 +36,7 @@ public class ShelfTigger : MonoBehaviour
         if (shelf.btn.CompareTag("1"))  // 버튼 태그가 1이면 storage1 활성화 
         {
             storage.transform.GetChild(0).gameObject.SetActive(true);
-            storageUI.transform.GetChild(2).gameObject.SetActive(false);
+            storageUI.transform.GetChild(1).gameObject.SetActive(false);
             storageIndex = 0;
         }
         else if (shelf.btn.CompareTag("2"))  // 버튼 태그가 1이면 storage2 활성화 
@@ -47,7 +47,7 @@ public class ShelfTigger : MonoBehaviour
         else if (shelf.btn.CompareTag("3"))  // 버튼 태그가 1이면 storage3 활성화 
         {
             storage.transform.GetChild(2).gameObject.SetActive(true);
-            storageUI.transform.GetChild(1).gameObject.SetActive(false);
+            storageUI.transform.GetChild(2).gameObject.SetActive(false);
             storageIndex = 2;
         }
     }
@@ -99,8 +99,8 @@ public class ShelfTigger : MonoBehaviour
         }
 
         if(storageIndex == 0)
-            storageUI.transform.GetChild(2).gameObject.SetActive(false);
-        else if(storageIndex == 2)
             storageUI.transform.GetChild(1).gameObject.SetActive(false);
+        else if(storageIndex == 2)
+            storageUI.transform.GetChild(2).gameObject.SetActive(false);
     }
 }

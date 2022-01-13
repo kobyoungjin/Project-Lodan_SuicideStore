@@ -15,7 +15,7 @@ public class IngredientSlot : MonoBehaviour
     {
         bar = GameObject.Find("ItemBar(Panel)");
         backgroundBar = GameObject.Find("BackGroundItemBar(Panel)");
-        ingrePrefab = Resources.Load<GameObject>("SlotPrefabs/Ingredient (Image)");  // 프리탭 이미지
+        ingrePrefab = Resources.Load<GameObject>("SlotPrefabs/Ingredient(Prefab)");  // 프리탭 이미지
         data = GameObject.FindObjectOfType<IngredientDatabase>().GetComponent<IngredientDatabase>();
     }  
 
@@ -27,7 +27,7 @@ public class IngredientSlot : MonoBehaviour
             image.ingredientImage.alphaHitTestMinimumThreshold = 0.01f;
 
             GameObject instance = Instantiate(ingrePrefab);
-            Image prefabImage = instance.GetComponent<Image>();
+            Image prefabImage = instance.transform.GetChild(0).GetComponent<Image>();
             prefabImage.sprite = image.ingredientImage.sprite;  // 클릭한 재료 이미지 변환
 
 

@@ -21,7 +21,7 @@ public class Shelf : MonoBehaviour
     {
         if (btn.transform.parent.gameObject.CompareTag("MainStorage"))
             trigger.ShowShelf(this);
-        else if (btn.transform.parent.gameObject.CompareTag("Storage"))
+        else if (btn.transform.parent.gameObject.CompareTag("StorageUI"))
             trigger.StorageUI(this);
     }
 }

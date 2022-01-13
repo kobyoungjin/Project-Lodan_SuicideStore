@@ -10,23 +10,23 @@ public class ShowDialogue : MonoBehaviour
     [SerializeField] TextMeshProUGUI npcText;
     [SerializeField] TextMeshProUGUI npcName;
     private CharacterManager manager;
-    private DatabaseManager database;
+    private DialogueDatabase database;
     private Button btn;
 
     private int clickNum;  // 몇번째 대사인지 구별변수 
     private bool isRead;  // 대사가 이미 나타나고 있는지 판별하는 변수(true면 한글자씩 나오게)
 
-    List<Dialogue> dialogue = new List<Dialogue>();
+    List<DialogueData> dialogue = new List<DialogueData>();
 
     private void Start()
     {
         manager = GameObject.FindObjectOfType<CharacterManager>().GetComponent<CharacterManager>();
-        database = GameObject.FindObjectOfType<DatabaseManager>().GetComponent<DatabaseManager>();
+        database = GameObject.FindObjectOfType<DialogueDatabase>().GetComponent<DialogueDatabase>();
         btn = GetComponent<Button>();
         clickNum = 2;
         isRead = true;
 
-        Dialogue[] dialogues = database.GetDialogue();
+        DialogueData[] dialogues = GameManager.Instance.GetStory("Farmer");
         for (int i = 0; i < dialogues.Length; i++)
         {
             dialogue.Add(dialogues[i]);  //dialogue 리스트에 DatabaseManager에서 가져온 대사 추가
