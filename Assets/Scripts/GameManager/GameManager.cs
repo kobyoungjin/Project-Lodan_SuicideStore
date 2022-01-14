@@ -10,7 +10,9 @@ public class GameManager : InheritSingleton<GameManager>
     //AnimationManager animationManager;
     //SettingManager settingManager;
     DialogueDatabase dialogueDatabase;
-    
+    SceneFlowManager sceneFlowManager;
+
+    List<Sprite> characterImageList = new List<Sprite>();
     Dictionary<string, DialogueData[]> dialogueDicData = new Dictionary<string, DialogueData[]>();
 
     protected override void Awake()
@@ -28,8 +30,11 @@ public class GameManager : InheritSingleton<GameManager>
         //animationManager = GameObject.FindObjectOfType<AnimationManager>().GetComponent<AnimationManager>();
         //settingManager = GameObject.FindObjectOfType<SettingManager>().GetComponent<SettingManager>();
         dialogueDatabase = GetComponent<DialogueDatabase>();
+        sceneFlowManager = GetComponent<SceneFlowManager>();
 
-        LoadDialogData();
+        LoadCharacterImageData();
+        LoadDialogueData();
+        LoadSceneData();
     }
 
 
@@ -49,8 +54,13 @@ public class GameManager : InheritSingleton<GameManager>
 
     }
 
+    void LoadSceneData()
+    {
+       
+    }
+
     // DiaLogue 데이터를 저장하는 함수
-    void LoadDialogData()  
+    void LoadDialogueData()  
     {
         TextAsset[] textFiles = Resources.LoadAll<TextAsset>("Dialogue");  // Resource/Dialogue 폴더에 있는 모든 파일들을 가져온다.
 
@@ -69,7 +79,24 @@ public class GameManager : InheritSingleton<GameManager>
         dialogueDatabase.SaveData(textFile);
         dialogueDicData.Add(textFile.name, dialogueDatabase.GetDialogue());
     }
+
+    // 인물 스프라이트 데이터 가져오는함수
+    void LoadCharacterImageData()
+    {
+        Sprite[] sprite = Resources.LoadAll<Sprite>("Image/Character");
+
+        for (int i = 0; i < sprite.Length; i++)
+        {
+            characterImageList.Add(sprite[i]);
+        }
+    }
     
+    // 인물 스프라이트 리스트 Getter함수
+    public List<Sprite> GetCharacterData()
+    {
+        return characterImageList;
+    }
+
     // 이야기를 가져오는 함수
     public DialogueData[] GetStory(string name)
     {
@@ -90,5 +117,7 @@ public class GameManager : InheritSingleton<GameManager>
         Debug.Log("name 입력을 잘못했습니다");
         return null;
     }
+
+
 }
 

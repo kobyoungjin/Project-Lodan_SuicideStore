@@ -17,6 +17,7 @@ TagManager:
   - 5
   - delete
   - StorageUI
+  - Customer
   layers:
   - Default
   - TransparentFX

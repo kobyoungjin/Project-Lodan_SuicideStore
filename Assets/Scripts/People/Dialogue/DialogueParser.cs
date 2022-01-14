@@ -16,6 +16,8 @@ public class DialogueParser : MonoBehaviour
             string[] row = data[i].Split(new char[] { ',' });  // ,별로 끊어서 저장
 
             DialogueData dialogue = new DialogueData(); // 대사 리스트 생성
+            
+            if (row[0] == "name") continue;
 
             dialogue.name = row[0]; 
             dialogue.context = row[1];

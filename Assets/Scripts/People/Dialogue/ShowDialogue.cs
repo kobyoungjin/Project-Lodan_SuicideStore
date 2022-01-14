@@ -11,48 +11,52 @@ public class ShowDialogue : MonoBehaviour
     [SerializeField] TextMeshProUGUI npcName;
     private CharacterManager manager;
     private DialogueDatabase database;
+    private SceneFlowManager sceneFlowManager;
     private Button btn;
 
-    private int clickNum;  // 몇번째 대사인지 구별변수 
-    private bool isRead;  // 대사가 이미 나타나고 있는지 판별하는 변수(true면 한글자씩 나오게)
+    private int clickNum =1;  // 몇번째 대사인지 구별변수 
+    private bool isRead = true;  // 대사가 이미 나타나고 있는지 판별하는 변수(true면 한글자씩 나오게)
 
+    SceneNumber currentState;
     List<DialogueData> dialogue = new List<DialogueData>();
 
     private void Start()
     {
         manager = GameObject.FindObjectOfType<CharacterManager>().GetComponent<CharacterManager>();
         database = GameObject.FindObjectOfType<DialogueDatabase>().GetComponent<DialogueDatabase>();
+        sceneFlowManager = GameObject.FindObjectOfType<SceneFlowManager>().GetComponent<SceneFlowManager>();
         btn = GetComponent<Button>();
-        clickNum = 2;
-        isRead = true;
 
-        DialogueData[] dialogues = GameManager.Instance.GetStory("Farmer");
+        currentState = sceneFlowManager.GetCurrentState();
+        string currentStateName = currentState.ToString();
+        manager.ChooseCharacter(currentStateName);
+        DialogueData[] dialogues = GameManager.Instance.GetStory(currentStateName);
         for (int i = 0; i < dialogues.Length; i++)
         {
             dialogue.Add(dialogues[i]);  //dialogue 리스트에 DatabaseManager에서 가져온 대사 추가
         }
 
-        ShowFirstDialogue();
+        //ShowFirstDialogue();
         btn.onClick.AddListener(()=> ShowText(clickNum)); // 클릭시 대화가 나온다.
     }
 
     // 클릭없이 바로 첫대사 출력하는 함수
     public void ShowFirstDialogue()
     {
-        npcName.text = dialogue[1].name;
+        npcName.text = dialogue[0].name;
 
         StopAllCoroutines();
         StartCoroutine(TypeNpcText(npcText.text = dialogue[1].context));
         isRead = true;
 
         GameObject.FindGameObjectWithTag("주인장").GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        GameObject.FindGameObjectWithTag("해리슨").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
+        GameObject.FindGameObjectWithTag("Customer").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);
     }
     
     // 대사를 보여주는 함수
     public void ShowText(int i)  
     {
-        if (i > 36) //대사를 끝까지 출력하면
+        if (i > dialogue.Count) //대사를 끝까지 출력하면
         {
             EndAndNextScene();
             return;
@@ -105,7 +109,12 @@ public class ShowDialogue : MonoBehaviour
     private void EndAndNextScene()  
     {
         npcText.text = string.Empty;
-        SceneManager.LoadScene("MedicineScene");
+        sceneFlowManager.SetNextStory();
+    }
+
+    public List<DialogueData> GetCurrentDialogue()
+    {
+        return dialogue;
     }
 
     public void skip()
