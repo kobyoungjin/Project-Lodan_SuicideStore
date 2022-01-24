@@ -12,7 +12,7 @@ public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     GameObject LoadGameBtn;
     Button btn;
     bool isClick;
-
+    
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,9 +28,11 @@ public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             case "NewGame":
                 SceneManager.LoadScene("DialogueScene");
+                //GameManager.Instance.LoadNextScene();
                 break;
             case "LoadGame":
                 SceneManager.LoadScene("");
+                //SceneController.LoadSavedScene();
                 break;
             case "Settings":
                 SceneManager.LoadScene("");

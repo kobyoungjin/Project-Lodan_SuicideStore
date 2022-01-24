@@ -12,9 +12,17 @@ public enum SceneNumber
    f
 }
 
-public class SceneFlowManager : MonoBehaviour
+public class SceneFlowManager : InheritSingleton<SceneFlowManager>
 {
     SceneNumber mainFlow;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        DontDestroyOnLoad(this.gameObject);
+        return;
+    }
 
     private void Start()
     {
