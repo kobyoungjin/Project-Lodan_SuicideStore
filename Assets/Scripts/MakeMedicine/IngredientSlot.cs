@@ -33,8 +33,8 @@ public class IngredientSlot : MonoBehaviour
 
             instance.transform.SetParent(bar.transform);  // 장바구니 UI에 보이게
 
-            int value = data.GetIngredientData(image.ingredientImage.gameObject.name.ToString());  // 장바구니에 추가되면 해당 점수가 더해진다.
-            score += value;
+            //int value = data.GetIngredientData(image.ingredientImage.gameObject.name.ToString());  // 장바구니에 추가되면 해당 점수가 더해진다.
+            //score += value;
         }
     }
     

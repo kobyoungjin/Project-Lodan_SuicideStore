@@ -13,8 +13,8 @@ public struct PeopleData
 [System.Serializable]
 public struct IngredientData
 {
-    public string key;
-    public int value;
+    public string emotion;
+    public string name;
 }
 
 [System.Serializable]

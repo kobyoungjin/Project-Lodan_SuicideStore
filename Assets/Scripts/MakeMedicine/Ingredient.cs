@@ -36,8 +36,8 @@ public class Ingredient : MonoBehaviour
     // 장바구니에 재료를 삭제하는 함수
     public void DeleteIngredient()
     {
-        int value = data.GetIngredientData(gameObject.GetComponent<Image>().sprite.name);
-        slotBar.score -= value;
+        //int value = data.GetIngredientData(gameObject.GetComponent<Image>().sprite.name);
+        //slotBar.score -= value;
 
         Destroy(this.transform.parent.gameObject);
     }

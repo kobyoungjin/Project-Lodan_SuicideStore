@@ -9,11 +9,14 @@ public class GameManager : InheritSingleton<GameManager>
     
     //AnimationManager animationManager;
     //SettingManager settingManager;
+
     DialogueDatabase dialogueDatabase;
+    IngredientDatabase ingredientDatabase;
     SceneFlowManager sceneFlowManager;
 
     List<Sprite> characterImageList = new List<Sprite>();
     Dictionary<string, DialogueData[]> dialogueDicData = new Dictionary<string, DialogueData[]>();
+    Dictionary<string, List<IngredientData>> ingredientDicData = new Dictionary<string, List<IngredientData>>();
 
     protected override void Awake()
     {
@@ -30,11 +33,12 @@ public class GameManager : InheritSingleton<GameManager>
         //animationManager = GameObject.FindObjectOfType<AnimationManager>().GetComponent<AnimationManager>();
         //settingManager = GameObject.FindObjectOfType<SettingManager>().GetComponent<SettingManager>();
         dialogueDatabase = GetComponent<DialogueDatabase>();
+        ingredientDatabase = GetComponent<IngredientDatabase>();
         sceneFlowManager = GetComponent<SceneFlowManager>();
 
         LoadCharacterImageData();
         LoadDialogueData();
-        LoadSceneData();
+        LoadIngreData();
     }
 
 
@@ -50,13 +54,23 @@ public class GameManager : InheritSingleton<GameManager>
 
     // 재료 데이터를 저장하는 함수
     void LoadIngreData()
-    { 
-
-    }
-
-    void LoadSceneData()
     {
-       
+        TextAsset textFile = Resources.Load<TextAsset>("IngredientData/Ingredient");  // Ingredient 분류표를 가져온다.
+        ingredientDatabase.SaveData(textFile);
+
+        List<string> typeData = ingredientDatabase.GetIngredientTypeList();
+        List<IngredientData> ingredientData = ingredientDatabase.GetIngredientList();
+
+        for (int i = 0; i < ingredientData.Count; i++)
+        {
+            if (ingredientDicData.ContainsKey(typeData[i]))     // 딕션어리 
+            {
+                ingredientDicData[typeData[i]].Add(ingredientData[i]);
+                continue;
+            }
+
+            ingredientDicData[typeData[i]] = new List<IngredientData> { ingredientData[i] };  // 딕션어리에 key값, value값 저장
+        }
     }
 
     // DiaLogue 데이터를 저장하는 함수
@@ -118,6 +132,25 @@ public class GameManager : InheritSingleton<GameManager>
         return null;
     }
 
+    public List<IngredientData> GetFindTypeList(string type)
+    {
+        Debug.Log(type);
+        if (type == null)  // 이름이 없으면 null값 반환
+        {
+            Debug.Log("이름이 없습니다.");
+            return null;
+        }
 
+        for (int i = 0; i < ingredientDicData.Count; i++)
+        {
+            if (ingredientDicData.ContainsKey(type))  // 딕션너리에 이름이 있으면 key값에 맞는 value값 반환
+            {
+                return ingredientDicData[type];
+            }
+        }
+
+        Debug.Log("리스트를 가져오지 못했습니다.");
+        return null;
+    }
 }
 
