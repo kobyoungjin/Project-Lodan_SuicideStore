@@ -27,12 +27,11 @@ public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         switch(this.gameObject.name)
         {
             case "NewGame":
-                SceneManager.LoadScene("DialogueScene");
-                //GameManager.Instance.LoadNextScene();
+                GameManager.Instance.LoadNextScene("DialogueScene", 1);
                 break;
             case "LoadGame":
                 SceneManager.LoadScene("");
-                //SceneController.LoadSavedScene();
+                //GameManager.Instance.LoadSavedScene();
                 break;
             case "Settings":
                 SceneManager.LoadScene("");

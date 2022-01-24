@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class GameManager : InheritSingleton<GameManager>
 {
-    public Texture2D cursorImg;
+    private Texture2D cursorImg;
     
-    //AnimationManager animationManager;
+    AnimationManager animationManager;
     //SettingManager settingManager;
 
     DialogueDatabase dialogueDatabase;
     IngredientDatabase ingredientDatabase;
-    SceneFlowManager sceneFlowManager;
 
     List<Sprite> characterImageList = new List<Sprite>();
     Dictionary<string, DialogueData[]> dialogueDicData = new Dictionary<string, DialogueData[]>();
@@ -22,6 +21,7 @@ public class GameManager : InheritSingleton<GameManager>
     {
         base.Awake();
 
+        cursorImg = Resources.Load<Texture2D>("Image/UI/Title/MainCursor");
         Cursor.SetCursor(cursorImg, Vector2.zero, CursorMode.ForceSoftware);  // 마우스 커서 이미지 변경
         
         DontDestroyOnLoad(this.gameObject);
@@ -30,17 +30,21 @@ public class GameManager : InheritSingleton<GameManager>
 
     private void Start()
     {
-        //animationManager = GameObject.FindObjectOfType<AnimationManager>().GetComponent<AnimationManager>();
+        animationManager = GameObject.FindObjectOfType<AnimationManager>().GetComponent<AnimationManager>();
         //settingManager = GameObject.FindObjectOfType<SettingManager>().GetComponent<SettingManager>();
         dialogueDatabase = GetComponent<DialogueDatabase>();
         ingredientDatabase = GetComponent<IngredientDatabase>();
-        sceneFlowManager = GetComponent<SceneFlowManager>();
 
         LoadCharacterImageData();
         LoadDialogueData();
         LoadIngreData();
     }
 
+    // 다음 어떤씬으로 fade in 애니메이션을 몇초간 적용할지 부르는 함수
+    public void LoadNextScene(string nextScene, float duration)
+    {
+        animationManager.SetFadeScene(nextScene, duration);  
+    }
 
     void PauseGame()
     {
@@ -52,7 +56,7 @@ public class GameManager : InheritSingleton<GameManager>
         Time.timeScale = 1;
     }
 
-    // 재료 데이터를 저장하는 함수
+    // Ingredient 데이터를 저장하는 함수
     void LoadIngreData()
     {
         TextAsset textFile = Resources.Load<TextAsset>("IngredientData/Ingredient");  // Ingredient 분류표를 가져온다.
@@ -111,7 +115,7 @@ public class GameManager : InheritSingleton<GameManager>
         return characterImageList;
     }
 
-    // 이야기를 가져오는 함수
+    // DiaLogue데이터를 가져오는 함수
     public DialogueData[] GetStory(string name)
     {
         if (name == null)  // 이름이 없으면 null값 반환
@@ -132,6 +136,7 @@ public class GameManager : InheritSingleton<GameManager>
         return null;
     }
 
+    // Ingredient의 (대단원)타입을 찾는 함수
     public List<IngredientData> GetFindTypeList(string type)
     {
         Debug.Log(type);

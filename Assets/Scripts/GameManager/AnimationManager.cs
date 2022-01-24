@@ -7,34 +7,25 @@ using UnityEngine.SceneManagement;
 public class AnimationManager : MonoBehaviour
 {
     private Image fader;
-    private static AnimationManager instance;
 
-    void Awake()
+    private void Start()
     {
-        fader = transform.GetChild(0).GetComponent<Image>();
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+        fader = GameObject.Find("SceneAnimation").transform.GetChild(0).GetComponent<Image>();
 
-            fader.rectTransform.sizeDelta = new Vector2(Screen.width + 20, Screen.height + 20);
-            fader.gameObject.SetActive(false);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        fader.rectTransform.sizeDelta = new Vector2(Screen.width + 20, Screen.height + 20);
+        fader.gameObject.SetActive(false);
     }
 
-    private IEnumerator FadeScene(int index, float duration)
+    private IEnumerator FadeScene(string nextScene, float duration)
     {
         fader.gameObject.SetActive(true); //UI Image On
+
         for (float t = 0; t < 1; t += Time.deltaTime / duration)
         {
             fader.color = new Color(0, 0, 0, Mathf.Lerp(0, 1, t)); //Image(fader) 투명도 조절
             yield return null;
         }
-        SceneManager.LoadScene(index); //전환
+        SceneManager.LoadScene(nextScene); //전환
         for (float t = 0; t < 1; t += Time.deltaTime / duration)
         {
             fader.color = new Color(0, 0, 0, Mathf.Lerp(1, 0, t)); //Image(fader) 투명도 조절
@@ -44,38 +35,34 @@ public class AnimationManager : MonoBehaviour
 
         //SaveScene();
     }
-    private IEnumerator InformNoSave()
-    {
-        GameObject text = GameObject.Find("Main Canvas").transform.Find("NoSaveText").gameObject;
-        if (text.active == false)
-        {
-            text.SetActive(true);
-            yield return new WaitForSeconds(2);
-            text.SetActive(false);
-        }
-    }
+    //private IEnumerator InformNoSave()
+    //{
+    //    GameObject text = GameObject.Find("Main Canvas").transform.Find("NoSaveText").gameObject;
+    //    if (text.active == false)
+    //    {
+    //        text.SetActive(true);
+    //        yield return new WaitForSeconds(2);
+    //        text.SetActive(false);
+    //    }
+    //}
 
-    public static void GoScene(int num)
+    // 다음 어떤씬으로 갈지
+    public void SetFadeScene(string nextScene, float duration)
     {
-        instance.StartCoroutine(instance.FadeScene(num, 1));
+        StartCoroutine(FadeScene(nextScene, duration));
     }
-    //다음 씬으로
-    public static void LoadNextScene()
-    {
-        int num = SceneManager.GetActiveScene().buildIndex;
-        GoScene(num + 1);
-    }
+ 
     //저장된 씬으로
-    public static void LoadSavedScene()
-    {
-        if (PlayerPrefs.HasKey("SavedScene"))
-        {
-            int savedScene = PlayerPrefs.GetInt("SavedScene");
-            GoScene(savedScene);
-        }
-        else
-            instance.StartCoroutine(instance.InformNoSave());
-    }
+    //public static void LoadSavedScene()
+    //{
+    //    if (PlayerPrefs.HasKey("SavedScene"))
+    //    {
+    //        int savedScene = PlayerPrefs.GetInt("SavedScene");
+    //        GoScene(savedScene);
+    //    }
+    //    else
+    //        instance.StartCoroutine(instance.InformNoSave());
+    //}
     //private void saveScene() //메인 씬 저장
     //{
     //    int savedScene = SceneManager.GetActiveScene().buildIndex;
@@ -84,13 +71,13 @@ public class AnimationManager : MonoBehaviour
     //}
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) //esc 누르면 타이틀 씬으로 (임시)
+        if (Input.GetKeyDown(KeyCode.Q)) 
         {
             PlayerPrefs.DeleteKey("SavedScene");
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))  // esc 누르면 타이틀 씬으로 (임시)
         {
-            GoScene(0);
+            SetFadeScene("Title", 1);
         }
     }
 }
