@@ -7,23 +7,27 @@ using TMPro;
 public class IllustratedBook : MonoBehaviour
 {
     Button btn;
-    GameObject waitingCanvas;
     GameObject detailBook;
 
     void Start()
     {
         btn = GetComponent<Button>();
-        waitingCanvas = GameObject.Find("WaitingRoomCanvas");
-        detailBook = waitingCanvas.transform.GetChild(5).gameObject;
-
-        if(btn.name == "IllustratedBook(Button)")
+        detailBook = GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(3).gameObject;
+        
+        if (btn.name == "Left(Button)")
         {
-            btn.onClick.AddListener(()=> waitingCanvas.transform.GetChild(4).gameObject.SetActive(true));
-            return;
+            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(2).gameObject.SetActive(false);
+            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else if(btn.name == "Right(Button)")
+        {
+            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(2).gameObject.SetActive(true);
+            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(1).gameObject.SetActive(false);
         }
         else
             btn.onClick.AddListener(FindData);
     }
+    
 
     void FindData()
     {
