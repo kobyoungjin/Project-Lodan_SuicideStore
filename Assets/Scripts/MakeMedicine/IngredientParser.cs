@@ -17,13 +17,14 @@ public class IngredientParser : MonoBehaviour
         {
             string[] row = data[i].Split(new char[] { ',' });  // ,별로 끊어서 저장
             IngredientData ingredientData = new IngredientData(); // 재료 리스트 생성
-
+            
             if (row[0] == "분류")
                 continue;
 
             type.Add(row[0]);  // type값 저장
             ingredientData.emotion = row[1];  // 감정 저장
             ingredientData.name = row[2];  // 재료이름 저장
+            ingredientData.explain = row[3];  // 재료설명 저장
 
             IngredientList.Add(ingredientData);
         }

@@ -15,6 +15,7 @@ public struct IngredientData
 {
     public string emotion;
     public string name;
+    public string explain;
 }
 
 [System.Serializable]

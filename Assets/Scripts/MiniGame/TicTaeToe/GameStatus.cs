@@ -103,11 +103,11 @@ public class GameStatus : MonoBehaviour
     {
         GameEnded = true;
         if (result == "tie")
-            gameEndingText.text = "<color=#ffa500ff><b><size=100>YOU TIED</size></b></color>\n<size=50><color=#808080ff>Press R to retry</color></size>";
+            gameEndingText.text = "<color=#ffa500ff><b><size=100>무승부</size></b></color>\n<size=50><color=#808080ff>R을 눌러 재시작</color></size>";
         else if (result == "X") // Can be commented out because it's imposible to win
-            gameEndingText.text = "<color=#008000ff><b><size=100>YOU WIN</size></b></color>\n<size=50><color=#808080ff>Press R to restart</color></size>";
+            gameEndingText.text = "<color=#008000ff><b><size=100>승리</size></b></color>\n<size=50><color=#808080ff>R을 눌러 재시작</color></size>";
         else
-            gameEndingText.text = "<color=#ff0000ff><b><size=100>YOU LOSE</size></b></color>\n<size=50><color=#808080ff>Press R to retry</color></size>";
+            gameEndingText.text = "<color=#ff0000ff><b><size=100>패배</size></b></color>\n<size=50><color=#808080ff>R을 눌러 재시작</color></size>";
     }
     private void RestartGame() // Resets all the values for a fresh game
     {
