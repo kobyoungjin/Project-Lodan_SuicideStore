@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - "\uC8FC\uC778\uC7A5"
+  - "\uD574\uB9AC\uC2A8"
+  - MainStorage
+  - Storage
+  - BackGround
+  - Item
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - delete
+  - StorageUI
+  - Customer
   layers:
   - Default
   - TransparentFX
