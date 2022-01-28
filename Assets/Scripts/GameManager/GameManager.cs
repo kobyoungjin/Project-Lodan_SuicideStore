@@ -59,7 +59,7 @@ public class GameManager : InheritSingleton<GameManager>
     // Ingredient 데이터를 저장하는 함수
     void LoadIngreData()
     {
-        TextAsset textFile = Resources.Load<TextAsset>("IngredientData/Ingredient");  // Ingredient 분류표를 가져온다.
+        TextAsset textFile = Resources.Load<TextAsset>("MakingRoom/IngredientData/Ingredient");  // Ingredient 분류표를 가져온다.
         ingredientDatabase.SaveData(textFile);
 
         List<string> typeData = ingredientDatabase.GetIngredientTypeList();
@@ -102,7 +102,7 @@ public class GameManager : InheritSingleton<GameManager>
     // DiaLogue 데이터를 저장하는 함수
     void LoadDialogueData()
     {
-        TextAsset[] textFiles = Resources.LoadAll<TextAsset>("Dialogue");  // Resource/Dialogue 폴더에 있는 모든 파일들을 가져온다.
+        TextAsset[] textFiles = Resources.LoadAll<TextAsset>("Dialogue/Text");  // Resource/Dialogue 폴더에 있는 모든 파일들을 가져온다.
 
         for (int i = 0; i < textFiles.Length; i++)
         {
@@ -135,7 +135,7 @@ public class GameManager : InheritSingleton<GameManager>
     // 인물 관련 데이터 저장하는 함수
     void LoadBookData()
     {
-        TextAsset textFile = Resources.Load<TextAsset>("IngredientData");  //  Resource/Dialogue 폴더에 있는 파일을 가져온다.
+        TextAsset textFile = Resources.Load<TextAsset>("MakingRoom/IngredientData");  //  Resource/Dialogue 폴더에 있는 파일을 가져온다.
 
         dialogueDatabase.SaveData(textFile);
         dialogueDicData.Add(textFile.name, dialogueDatabase.GetDialogue());
@@ -144,7 +144,7 @@ public class GameManager : InheritSingleton<GameManager>
     // 인물 스프라이트 데이터 가져오는함수
     void LoadCharacterImageData()
     {
-        Sprite[] sprite = Resources.LoadAll<Sprite>("Image/Character");
+        Sprite[] sprite = Resources.LoadAll<Sprite>("Dialogue/Character");
 
         for (int i = 0; i < sprite.Length; i++)
         {

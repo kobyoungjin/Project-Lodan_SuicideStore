@@ -15,7 +15,7 @@ public class IngredientSlot : MonoBehaviour
     {
         bar = GameObject.Find("ItemBar(Panel)");
         backgroundBar = GameObject.Find("BackGroundItemBar(Panel)");
-        ingrePrefab = Resources.Load<GameObject>("SlotPrefabs/Ingredient(Prefab)");  // 프리탭 이미지
+        ingrePrefab = Resources.Load<GameObject>("MakingRoom/Prefab/Ingredient(Prefab)");  // 프리탭 이미지
         data = GameObject.FindObjectOfType<IngredientDatabase>().GetComponent<IngredientDatabase>();
     }  
 

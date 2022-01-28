@@ -65,7 +65,7 @@ public class ShowDialogue : MonoBehaviour
         {
             clickNum = i + 1;
 
-            SceneManager.LoadScene("MedicineScene");
+            GameManager.Instance.LoadNextScene("MedicineScene", 1.0f);
             return;
         }
 

@@ -21,7 +21,7 @@ public class IngredientBook : MonoBehaviour
 
         type = GameManager.Instance.GetTypeList();
         ingreAllData = GameManager.Instance.GetIngreAllData();
-        ingreSprites = Resources.LoadAll<Sprite>("Image/MakingRoom/Material");
+        ingreSprites = Resources.LoadAll<Sprite>("MakingRoom/Material");
 
         Page(page);
         ChangeData(page);

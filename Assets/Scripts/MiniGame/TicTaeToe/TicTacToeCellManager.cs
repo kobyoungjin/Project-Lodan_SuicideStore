@@ -41,12 +41,12 @@ public class TicTacToeCellManager : MonoBehaviour
         {
             if (gameStatus.XTurn)
             {
-                CellImage.sprite = Resources.Load<Sprite>("TicTaeToe/X");
+                CellImage.sprite = Resources.Load<Sprite>("MiniGame/TicTaeToe/X");
                 player = "X";
             }
             else
             {
-                CellImage.sprite = Resources.Load<Sprite>("TicTaeToe/O");
+                CellImage.sprite = Resources.Load<Sprite>("MiniGame/TicTaeToe/O");
                 player = "O";
             }
             clickedCell = new Point(cellNumber % 3, Convert.ToInt32(Math.Floor(cellNumber / 3.0)) % 3); // Calculates where the cell should be in the array
