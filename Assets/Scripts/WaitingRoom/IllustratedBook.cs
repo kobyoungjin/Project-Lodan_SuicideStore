@@ -8,26 +8,37 @@ public class IllustratedBook : MonoBehaviour
 {
     Button btn;
     GameObject detailBook;
+    Transform canvas;
 
     void Start()
     {
         btn = GetComponent<Button>();
         detailBook = GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(3).gameObject;
-        
+        canvas = GameObject.Find("IllustratedBook(Canvas)").transform;
+
         if (btn.name == "Left(Button)")
         {
-            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(2).gameObject.SetActive(false);
-            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(1).gameObject.SetActive(true);
+            btn.onClick.AddListener(Left);
         }
         else if(btn.name == "Right(Button)")
         {
-            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(2).gameObject.SetActive(true);
-            GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(1).gameObject.SetActive(false);
+            btn.onClick.AddListener(Right);
         }
         else
             btn.onClick.AddListener(FindData);
     }
     
+    void Left()
+    {
+        canvas.GetChild(2).gameObject.SetActive(false);
+        canvas.GetChild(1).gameObject.SetActive(true);
+    }
+
+    void Right()
+    {
+        canvas.GetChild(2).gameObject.SetActive(true);
+        canvas.GetChild(1).gameObject.SetActive(false);
+    }
 
     void FindData()
     {

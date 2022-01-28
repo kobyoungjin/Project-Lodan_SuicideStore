@@ -24,7 +24,8 @@ public class IngredientBook : MonoBehaviour
         ingreSprites = Resources.LoadAll<Sprite>("Image/MakingRoom/Material");
 
         Page(page);
-        ChangeData(page - 1);
+        ChangeData(page);
+            
 
         btn1.onClick.AddListener(Left);
         btn2.onClick.AddListener(Right);
@@ -35,11 +36,9 @@ public class IngredientBook : MonoBehaviour
         page -= 1;
 
         if (page < 1) page = 1;
-
-        Debug.Log(page);
-
-        //ChangeData(page);
+        
         Page(page);
+        ChangeData(page);
     }
 
     void Right()
@@ -47,22 +46,22 @@ public class IngredientBook : MonoBehaviour
         page += 1;
 
         if (page > 5) page = 5;
-
-        Debug.Log(page);
-
-        //ChangeData(page);
+        
+        
         Page(page);
+        ChangeData(page);
     }
 
     void ChangeData(int page)
     {
         Transform range;
-                       
-        for (int i = 4 * page; i < (4 * page) + 4; i++)
+        int start = 4 * (page - 1);    
+        for (int i = start; i < start + 4; i++)
         {
-            range = transform.GetChild(0).transform.GetChild(i).transform;
+            range = transform.GetChild(0).transform.GetChild(i - start).transform;
 
-            range.GetChild(1).GetComponent<Image>().sprite = ingreSprites[i];
+            Sprite sprite = FindIngreSprite(ingreAllData[i].name);
+            range.GetChild(1).GetComponent<Image>().sprite = sprite;
             range.GetChild(2).transform.GetComponentInChildren<TextMeshProUGUI>().text = ingreAllData[i].name;
             range.GetChild(3).GetComponent<TextMeshProUGUI>().text = type[i];
             range.GetChild(4).GetComponent<TextMeshProUGUI>().text = ingreAllData[i].emotion;
@@ -74,6 +73,26 @@ public class IngredientBook : MonoBehaviour
     {
         TextMeshProUGUI bookPage = GameObject.Find("IngredientBook(Image)").transform.GetChild(3).GetComponent<TextMeshProUGUI>();
 
+        if (btn1.gameObject.activeSelf == false) btn1.gameObject.SetActive(true);
+        if (btn1.gameObject.activeSelf == false) btn2.gameObject.SetActive(true);
+
+        if (page == 1) btn1.gameObject.SetActive(false);
+        if (page == 5) btn2.gameObject.SetActive(false);
+
         bookPage.text = page.ToString();
+    }
+
+    Sprite FindIngreSprite(string name)
+    {
+        for (int i = 0; i < ingreSprites.Length; i++)
+        {
+            if(ingreSprites[i].name == name)
+            {
+                return ingreSprites[i];
+            }
+        }
+
+        Debug.Log("Sprite null값을 반환합니다.");
+        return null;
     }
 }
