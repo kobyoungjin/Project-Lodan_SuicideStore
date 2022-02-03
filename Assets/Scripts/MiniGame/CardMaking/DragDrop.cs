@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
     [SerializeField] private Canvas canvas;
     
@@ -34,6 +34,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         pos = this.gameObject.transform.position; //처음 위치
     }
 
+    
     //잡고 움직이기 시작하면 카운트됨.
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -52,8 +53,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         {
             transform.position = eventData.position;
         }
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-        
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;   
     }
 
     //편지지 밖에서 드랍 시 카운트. --> 편지지에서 드롭 시(Letter 스크립트의 OnDrop)
@@ -98,11 +98,11 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         // isEnter = 편지지 위치여부 변수, isCheckingFirst = 처음 편지지 들어갔을때 확인 변수
         if (flower.pointerDrag != null && isEnter && !isCheckingFirst)  // 현재 Drag이벤트 중인 gameObject를 받을때
         {
-            GameObject box = Instantiate(flower.pointerDrag.gameObject, pos, Quaternion.identity);
-            box.name = this.name;
-            box.transform.SetParent(canvas.transform.Find("DecoItem").transform);
-            box.GetComponent<CanvasGroup>().alpha = 1.0f;
-            box.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            GameObject fbox = Instantiate(flower.pointerDrag.gameObject, pos, Quaternion.identity);
+            fbox.name = this.name;
+            fbox.transform.SetParent(canvas.transform.Find("DecoItem").transform);
+            fbox.GetComponent<CanvasGroup>().alpha = 1.0f;
+            fbox.GetComponent<CanvasGroup>().blocksRaycasts = true;
 
             isCheckingFirst = true;
         }
@@ -115,16 +115,15 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         // isEnter = 편지지 위치여부 변수, isCheckingFirst = 처음 편지지 들어갔을때 확인 변수
         if (sentence.pointerDrag != null && isEnter && !isCheckingFirst)  // 현재 Drag이벤트 중인 gameObject를 받을때
         {
-            GameObject box = Instantiate(sentence.pointerDrag.gameObject, pos, sentence.pointerDrag.gameObject.transform.rotation);
-            box.name = this.name;
-            box.transform.SetParent(canvas.transform.Find("DecoItem").transform);
-            box.GetComponent<CanvasGroup>().alpha = 1.0f;
-            box.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            GameObject sbox = Instantiate(sentence.pointerDrag.gameObject, pos, sentence.pointerDrag.gameObject.transform.rotation);
+            sbox.name = this.name;
+            sbox.transform.SetParent(canvas.transform.Find("DecoItem").transform);
+            sbox.GetComponent<CanvasGroup>().alpha = 1.0f;
+            sbox.GetComponent<CanvasGroup>().blocksRaycasts = true;
 
             isCheckingFirst = true;
         }
     }
-
 
     void BackFrame(PointerEventData backframe)
     {
@@ -134,10 +133,30 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             if (frame[i].gameObject == backframe.pointerDrag.gameObject) 
             {
                 Debug.Log(decoframe[i].name);
-                findletter.GetComponent<Image>().sprite = decoframe[i];
+                findletter.GetComponent<Image>().sprite = decoframe[i]; 
+
                 break;
             }
         }
         backframe.pointerDrag.gameObject.transform.position = pos; //아이템 다시 원래 자리로 돌아가기.
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        bool isEnter = letter.GetEnter();
+        if (eventData.pointerDrag.CompareTag("DecoItem") && eventData.pointerDrag !=isEnter && isCheckingFirst)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                Destroy(eventData.pointerDrag.gameObject);
+            }
+        }
+        else if (eventData.pointerDrag.CompareTag("DecoSentence") && eventData.pointerDrag != isEnter && isCheckingFirst)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                Destroy(eventData.pointerDrag.gameObject);
+            }
+        }
     }
 }
