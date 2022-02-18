@@ -57,7 +57,9 @@ public class CharacterManager : MonoBehaviour
                 return;
             }
         }
-        
+
+        customerImage.sprite = null;
         Debug.Log("캐릭터 이미지가 없습니다.");
+        return;
     }
 }

@@ -11,10 +11,10 @@ public class ShowDialogue : MonoBehaviour
     [SerializeField] TextMeshProUGUI npcName;
     private CharacterManager manager;
     private DialogueDatabase database;
-    private SceneFlowManager sceneFlowManager;
     private Button btn;
 
-    private int clickNum =1;  // 몇번째 대사인지 구별변수 
+    private int clickNum = SceneFlowManager.Instance.GetSaveDialogueNum();  // 몇번째 대사인지 구별변수 
+    int medicineSceneNum;
     private bool isRead = true;  // 대사가 이미 나타나고 있는지 판별하는 변수(true면 한글자씩 나오게)
 
     SceneNumber currentState;
@@ -24,20 +24,32 @@ public class ShowDialogue : MonoBehaviour
     {
         manager = GameObject.FindObjectOfType<CharacterManager>().GetComponent<CharacterManager>();
         database = GameObject.FindObjectOfType<DialogueDatabase>().GetComponent<DialogueDatabase>();
-        sceneFlowManager = GameObject.FindObjectOfType<SceneFlowManager>().GetComponent<SceneFlowManager>();
         btn = GetComponent<Button>();
 
-        currentState = sceneFlowManager.GetCurrentState();
-        string currentStateName = currentState.ToString();
-        manager.ChooseCharacter(currentStateName);
-        DialogueData[] dialogues = GameManager.Instance.GetStory(currentStateName);
-        for (int i = 0; i < dialogues.Length; i++)
+
+        Transform dialogueBar = GameObject.Find("Dialogue_Bar").transform;
+        npcText = dialogueBar.GetChild(0).GetComponent<TextMeshProUGUI>();
+        npcName = dialogueBar.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        npcText.text = null;
+        npcName.text = null;
+
+        string currentStateName = null;
+        if (SceneManager.GetActiveScene().name == "BehindDialogueScene")
         {
-            dialogue.Add(dialogues[i]);  //dialogue 리스트에 DatabaseManager에서 가져온 대사 추가
+            currentStateName = SceneFlowManager.Instance.GetBehindName();
+        }
+        else
+        {
+            currentState = SceneFlowManager.Instance.GetCurrentState();
+            currentStateName = currentState.ToString();
         }
 
+        Debug.Log(currentStateName);
+        SettingStory(currentStateName);
+
         //ShowFirstDialogue();
-        btn.onClick.AddListener(()=> ShowText(clickNum)); // 클릭시 대화가 나온다.
+        btn.onClick.AddListener(() => ShowText(clickNum)); // 클릭시 대화가 나온다.
     }
 
     // 클릭없이 바로 첫대사 출력하는 함수
@@ -56,16 +68,17 @@ public class ShowDialogue : MonoBehaviour
     // 대사를 보여주는 함수
     public void ShowText(int i)  
     {
-        if (i > dialogue.Count) //대사를 끝까지 출력하면
+        if (i >= dialogue.Count) //대사를 끝까지 출력하면
         {
             EndAndNextScene();
             return;
         }
-        else if (i == 34)  // 약물제조 전 대사이면
+        else if (i == medicineSceneNum)  // 이름칸에 빈칸이 있으면
         {
+            Debug.Log(medicineSceneNum);
             clickNum = i + 1;
-
-            GameManager.Instance.LoadNextScene("MedicineScene", 1.0f);
+            SceneFlowManager.Instance.SetSaveDialogueNum(clickNum);
+            //GameManager.Instance.LoadNextScene("MedicineScene", 1.0f);
             return;
         }
 
@@ -94,7 +107,7 @@ public class ShowDialogue : MonoBehaviour
 
         foreach (var letter in npcText)
         {
-            this.npcText.text += letter;   //한글자씩 생성
+            this.npcText.text += letter;   // 한글자씩 생성
             yield return new WaitForSeconds(0.1f);
         }
        
@@ -109,7 +122,10 @@ public class ShowDialogue : MonoBehaviour
     private void EndAndNextScene()  
     {
         npcText.text = string.Empty;
-        sceneFlowManager.SetNextStory();
+        SceneFlowManager.Instance.SetNextStory();
+        clickNum = 0;
+        currentState = SceneFlowManager.Instance.GetCurrentState();
+        SettingStory(currentState.ToString());
     }
 
     public List<DialogueData> GetCurrentDialogue()
@@ -117,9 +133,31 @@ public class ShowDialogue : MonoBehaviour
         return dialogue;
     }
 
+    public void SetMedicineNum(int num)
+    {
+        medicineSceneNum = num;
+    }
+
     public void skip()
     {
-        clickNum = 31;
+        clickNum = medicineSceneNum;
         ShowText(clickNum);
+    }
+
+    // 스토리에 필요한캐릭터와 대사 가져오는 함수
+    void SettingStory(string StateName)
+    {
+        dialogue.Clear();
+        manager.ChooseCharacter(StateName);
+        DialogueData[] dialogues = GameManager.Instance.GetStory(StateName);
+        for (int i = 0; i < dialogues.Length; i++)
+        {
+            if (dialogues[i].name == "")
+            {
+                medicineSceneNum = i;
+                continue;
+            }
+            dialogue.Add(dialogues[i]);  //dialogue 리스트에 DatabaseManager에서 가져온 대사 추가
+        }
     }
 }

@@ -17,7 +17,7 @@ public class IngredientParser : MonoBehaviour
         {
             string[] row = data[i].Split(new char[] { ',' });  // ,별로 끊어서 저장
             IngredientData ingredientData = new IngredientData(); // 재료 리스트 생성
-            
+
             if (row[0] == "분류")
                 continue;
 

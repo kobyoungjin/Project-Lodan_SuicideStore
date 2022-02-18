@@ -16,6 +16,9 @@ public class GameManager : InheritSingleton<GameManager>
     List<Sprite> characterImageList = new List<Sprite>();
     Dictionary<string, DialogueData[]> dialogueDicData = new Dictionary<string, DialogueData[]>();
     Dictionary<string, List<IngredientData>> ingredientDicData = new Dictionary<string, List<IngredientData>>();
+    Dictionary<string, string> ingreToTypeDicData = new Dictionary<string, string>();
+    Dictionary<string, string[]> answerDicData = new Dictionary<string, string[]>();
+
 
     protected override void Awake()
     {
@@ -24,7 +27,12 @@ public class GameManager : InheritSingleton<GameManager>
         cursorImg = Resources.Load<Texture2D>("Image/Title/MainCursor");
         Cursor.SetCursor(cursorImg, Vector2.zero, CursorMode.ForceSoftware);  // 마우스 커서 이미지 변경
 
-        DontDestroyOnLoad(this.gameObject);
+        var objs = FindObjectsOfType<GameManager>();
+        if (objs.Length == 1)  // GameManager타입의 개수가 1개일때만 
+            DontDestroyOnLoad(this.gameObject);
+        else  // 아니면 삭제
+            Destroy(this.gameObject);
+
         return;
     }
 
@@ -37,7 +45,17 @@ public class GameManager : InheritSingleton<GameManager>
 
         LoadCharacterImageData();
         LoadDialogueData();
-        LoadIngreData();
+        LoadIngreToTypeData();
+        LoadMakingAnswer();
+        //LoadIngreData();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))  // esc 누르면 타이틀 씬으로 (임시)
+        {
+            GameManager.Instance.LoadNextScene("Title", 1.0f);
+        }
     }
 
     // 다음 어떤씬으로 fade in 애니메이션을 몇초간 적용할지 부르는 함수
@@ -99,10 +117,100 @@ public class GameManager : InheritSingleton<GameManager>
         return null;
     }
 
+    // Ingreient 데이터 저장하는 함수 (대단원 -> 이름)
+    void LoadIngreToTypeData()
+    {
+        TextAsset textFile = Resources.Load<TextAsset>("MakingRoom/IngredientData/Ingredient");  // Ingredient 분류표를 가져온다.
+        ingredientDatabase.SaveData(textFile);
+
+        List<string> typeData = ingredientDatabase.GetIngredientTypeList();
+        List<IngredientData> ingredientData = ingredientDatabase.GetIngredientList();
+
+        for (int i = 0; i < ingredientData.Count; i++)
+        {
+            ingreToTypeDicData.Add(ingredientData[i].name, typeData[i]);
+        }
+    }
+    
+    // 재료이름으로 대단원 찾기
+    public string GetFindIngreToType(string name)
+    {
+        Debug.Log(name);
+        if (name == null)  // 이름이 없으면 null값 반환
+        {
+            Debug.Log("이름이 없습니다.");
+            return null;
+        }
+
+        for (int i = 0; i < ingreToTypeDicData.Count; i++)
+        {
+            if (ingreToTypeDicData.ContainsKey(name))  // 딕션너리에 이름이 있으면 key값에 맞는 value값 반환
+            {
+                return ingreToTypeDicData[name];
+            }
+        }
+
+        Debug.Log("string을 가져오지 못했습니다." + name);
+        return null;
+    }
+
+    // Ingredient의 대분류 타입 리스트를 반환하는 함수
+    public List<string> GetTypeList()
+    {
+        List<string> typeData = ingredientDatabase.GetIngredientTypeList();
+
+        return typeData;
+    }
+
+    // Ingredient 데이터를 반환하는 함수
+    public List<IngredientData> GetIngreAllData()
+    {
+        List<IngredientData> ingredientData = ingredientDatabase.GetIngredientList();
+
+        return ingredientData;
+    }
+
+    // MakingRoom 조합식 답 
+    void LoadMakingAnswer()
+    {
+        TextAsset textFile = Resources.Load<TextAsset>("MakingRoom/IngredientData/Answer");  // Ingredient 정답표을 불러온다.
+
+        ingredientDatabase.SaveData(textFile);
+        
+        List<Answer> answerData = ingredientDatabase.GetAnswerList();
+
+        for (int i = 0; i < answerData.Count; i++)
+        {
+            answerDicData.Add(answerData[i].name, answerData[i].emotion);
+        }
+    }
+
+    // 스토리에 따른 조합식 답 찾는 함수
+    public string[] FindAnswer(string name)
+    {
+        Debug.Log(name);
+        if (name == null)  // 이름이 없으면 null값 반환
+        {
+            Debug.Log("이름이 없습니다.");
+            return null;
+        }
+
+        for (int i = 0; i < answerDicData.Count; i++)
+        {
+            if (answerDicData.ContainsKey(name))  // 딕션너리에 이름이 있으면 key값에 맞는 value값 반환
+            {
+                return answerDicData[name];
+            }
+        }
+
+        Debug.Log("string[]을 가져오지 못했습니다." + name);
+        return null;
+    }
+
     // DiaLogue 데이터를 저장하는 함수
     void LoadDialogueData()
     {
-        TextAsset[] textFiles = Resources.LoadAll<TextAsset>("Dialogue/Text");  // Resource/Dialogue 폴더에 있는 모든 파일들을 가져온다.
+        TextAsset[] textFiles = Resources.LoadAll<TextAsset>("Dialogue/Chapter1/Text");  // Resource/Dialogue 폴더에 있는 모든 파일들을 가져온다.
 
         for (int i = 0; i < textFiles.Length; i++)
         {
@@ -144,7 +252,7 @@ public class GameManager : InheritSingleton<GameManager>
     // 인물 스프라이트 데이터 가져오는함수
     void LoadCharacterImageData()
     {
-        Sprite[] sprite = Resources.LoadAll<Sprite>("Dialogue/Character");
+        Sprite[] sprite = Resources.LoadAll<Sprite>("Dialogue/Chapter1/Character");
 
         for (int i = 0; i < sprite.Length; i++)
         {
@@ -158,19 +266,7 @@ public class GameManager : InheritSingleton<GameManager>
         return characterImageList;
     }
 
-    public List<string> GetTypeList()
-    {
-        List<string> typeData = ingredientDatabase.GetIngredientTypeList();
-
-        return typeData;
-    }
-
-    public List<IngredientData> GetIngreAllData()
-    {
-        List<IngredientData> ingredientData = ingredientDatabase.GetIngredientList();
-
-        return ingredientData;
-    }
+   
 }
 
 

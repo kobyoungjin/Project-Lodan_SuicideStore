@@ -9,7 +9,7 @@ public class ShelfTigger : MonoBehaviour
     private GameObject backGround;
     private GameObject storage;
     private GameObject storageUI;
-
+    Image image;
     private int storageIndex;
 
     private void Start()
@@ -18,6 +18,9 @@ public class ShelfTigger : MonoBehaviour
         backGround = GameObject.FindGameObjectWithTag("BackGround");
         storage = GameObject.Find("Storage");
         storageUI = storage.transform.GetChild(3).gameObject;
+
+        image = mainStorage.transform.GetChild(4).GetComponent<Image>();
+        image.alphaHitTestMinimumThreshold = 0.01f;
     }
     
 

@@ -6,8 +6,9 @@ public class IngredientDatabase : MonoBehaviour
 {
     List<string> ingredientData = new List<string>();
     List<IngredientData> ingredientDic = new List<IngredientData>();
+    List<Answer> answerDic = new List<Answer>();
     IngredientParser theParser;
-
+    AnswerParser answerParser;
     void Awake()
     {
         theParser = GetComponent<IngredientParser>();
@@ -15,17 +16,34 @@ public class IngredientDatabase : MonoBehaviour
 
     public void SaveData(TextAsset csvFile)
     {
-        IngredientData[] ingredients = theParser.Parse(csvFile);
-
-        for (int i = 0; i < ingredients.Length; i++)
+        if(csvFile.name == "Ingredient")
         {
-            ingredientDic.Add(ingredients[i]);
+            IngredientData[] ingredients = theParser.Parse(csvFile);
+
+            for (int i = 0; i < ingredients.Length; i++)
+            {
+                ingredientDic.Add(ingredients[i]);
+            }
+        }
+        else
+        {
+            Answer[] answers = answerParser.Parse(csvFile);
+
+            for (int i = 0; i < answers.Length; i++)
+            {
+                answerDic.Add(answers[i]);
+            }
         }
     }
 
     public List<IngredientData> GetIngredientList()
     {
         return ingredientDic;
+    }
+
+    public List<Answer> GetAnswerList()
+    {
+        return answerDic;
     }
 
     public List<string> GetIngredientTypeList()

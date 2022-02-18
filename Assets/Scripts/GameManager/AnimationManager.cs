@@ -16,6 +16,7 @@ public class AnimationManager : MonoBehaviour
         fader.gameObject.SetActive(false);
     }
 
+    // fade in out 실행 함수
     private IEnumerator FadeScene(string nextScene, float duration)
     {
         fader.gameObject.SetActive(true); //UI Image On
@@ -25,7 +26,10 @@ public class AnimationManager : MonoBehaviour
             fader.color = new Color(0, 0, 0, Mathf.Lerp(0, 1, t)); //Image(fader) 투명도 조절
             yield return null;
         }
-        SceneManager.LoadScene(nextScene); //전환
+
+        if(nextScene != "")  // 씬 이름이 없으면 바로 실행
+            SceneManager.LoadScene(nextScene); //전환
+
         for (float t = 0; t < 1; t += Time.deltaTime / duration)
         {
             fader.color = new Color(0, 0, 0, Mathf.Lerp(1, 0, t)); //Image(fader) 투명도 조절

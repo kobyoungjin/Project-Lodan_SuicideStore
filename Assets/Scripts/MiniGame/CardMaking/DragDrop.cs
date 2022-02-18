@@ -18,6 +18,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     GameObject findletter;
 
     bool isCheckingFirst = false;
+    bool isUICrash = false;
 
     void Start()
     {

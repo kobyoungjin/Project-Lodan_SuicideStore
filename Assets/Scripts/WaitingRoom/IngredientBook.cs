@@ -31,6 +31,7 @@ public class IngredientBook : MonoBehaviour
         btn2.onClick.AddListener(Right);
     }
     
+    // ingredientBook 화살표 왼쪽
     void Left()
     {
         page -= 1;
@@ -41,6 +42,7 @@ public class IngredientBook : MonoBehaviour
         ChangeData(page);
     }
 
+    // ingredientBook 화살표 오른쪽
     void Right()
     {
         page += 1;
@@ -52,6 +54,7 @@ public class IngredientBook : MonoBehaviour
         ChangeData(page);
     }
 
+    // 화살표 클릭시 다음 데이터로 변환
     void ChangeData(int page)
     {
         Transform range;
@@ -60,21 +63,22 @@ public class IngredientBook : MonoBehaviour
         {
             range = transform.GetChild(0).transform.GetChild(i - start).transform;
 
-            Sprite sprite = FindIngreSprite(ingreAllData[i].name);
-            range.GetChild(1).GetComponent<Image>().sprite = sprite;
-            range.GetChild(2).transform.GetComponentInChildren<TextMeshProUGUI>().text = ingreAllData[i].name;
-            range.GetChild(3).GetComponent<TextMeshProUGUI>().text = type[i];
-            range.GetChild(4).GetComponent<TextMeshProUGUI>().text = ingreAllData[i].emotion;
-            range.GetChild(5).GetComponent<TextMeshProUGUI>().text = ingreAllData[i].explain;
+            Sprite sprite = FindIngreSprite(ingreAllData[i].name);  
+            range.GetChild(1).GetComponent<Image>().sprite = sprite;  // 이미지 변경
+            range.GetChild(2).transform.GetComponentInChildren<TextMeshProUGUI>().text = ingreAllData[i].name;  // 이름 변경
+            range.GetChild(3).GetComponent<TextMeshProUGUI>().text = type[i];  // 감정 대분류 변경
+            range.GetChild(4).GetComponent<TextMeshProUGUI>().text = ingreAllData[i].emotion;  // 세부 감정 변경
+            range.GetChild(5).GetComponent<TextMeshProUGUI>().text = ingreAllData[i].explain;  // ingredient 설명 변경
         }
     }
 
+    // 페이지 찾는 함수
     void Page(int page)
     {
         TextMeshProUGUI bookPage = GameObject.Find("IngredientBook(Image)").transform.GetChild(3).GetComponent<TextMeshProUGUI>();
 
-        if (btn1.gameObject.activeSelf == false) btn1.gameObject.SetActive(true);
-        if (btn1.gameObject.activeSelf == false) btn2.gameObject.SetActive(true);
+        if (btn1.gameObject.activeSelf == false) btn1.gameObject.SetActive(true);  // 오른쪽 화살표가 꺼져있으면 켜기
+        if (btn2.gameObject.activeSelf == false) btn2.gameObject.SetActive(true);  // 왼쪽 화살표가 꺼져있으면 켜기
 
         if (page == 1) btn1.gameObject.SetActive(false);
         if (page == 5) btn2.gameObject.SetActive(false);
@@ -82,6 +86,7 @@ public class IngredientBook : MonoBehaviour
         bookPage.text = page.ToString();
     }
 
+    // ingredient 스프라이트 찾는 함수
     Sprite FindIngreSprite(string name)
     {
         for (int i = 0; i < ingreSprites.Length; i++)

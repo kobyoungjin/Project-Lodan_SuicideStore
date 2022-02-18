@@ -25,3 +25,10 @@ public struct DialogueData
     public string context;
 }
 
+[System.Serializable]
+public struct Answer
+{
+    public string name;
+    public string[] emotion;
+}
+

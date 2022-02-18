@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MedicineScene.unity
     guid: 284b432583578fa41b7b630773d84b71
+  - enabled: 1
+    path: Assets/Scenes/BehindDialogueScene.unity
+    guid: 5c80733315f507b42a0609f3d4938d57
   m_configObjects: {}

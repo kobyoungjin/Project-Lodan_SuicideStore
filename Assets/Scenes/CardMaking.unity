@@ -2254,6 +2254,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: DecoItem
       objectReference: {fileID: 0}
+    - target: {fileID: 6412621325759643003, guid: e5d5c828254e6b840a150b3d964310a6, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7660286011813171880, guid: e5d5c828254e6b840a150b3d964310a6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3341,6 +3345,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 832009860}
     m_Modifications:
+    - target: {fileID: 2250572606907763190, guid: 5f1a0e9f5b0530845ad9cf1db056702a, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6664512666705451830, guid: 5f1a0e9f5b0530845ad9cf1db056702a, type: 3}
       propertyPath: m_Name
       value: "\uC7A5\uC2DD5"
