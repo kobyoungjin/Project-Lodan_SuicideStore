@@ -4,30 +4,29 @@ using UnityEngine;
 
 public enum SceneNumber
 {
-    Kate = 0,
-    Harison = 1,
-    Aaron_Ellie = 2,
-    Fred = 3,
-    Brianna = 4,
-    Liam = 5,
-    Miya = 6,
-    Eden = 7,
-    Ben = 8,
-    Miles = 9,
-    Galen = 10,
-    Noren = 11,
+    케이트 = 0,
+    해리슨 = 1,
+    애런_엘리 = 2,
+    프레드 = 3,
+    브리아나 = 4,
+    리암 = 5,
+    마야 = 6,
+    이든 = 7,
+    벤 = 8,
+    마일즈 = 9,
+    갈런 = 10,
+    노렌 = 11,
 }
 
 public enum Playing
 {
     Dialogue,
     MiniGame,
-    Making
 }
 
 public class SceneFlowManager : InheritSingleton<SceneFlowManager>
 {
-    SceneNumber currentFlow = SceneNumber.Harison;
+    SceneNumber currentFlow = SceneNumber.마야;
     int saveNumer = 1;
     string setBehindName;
 
@@ -52,6 +51,7 @@ public class SceneFlowManager : InheritSingleton<SceneFlowManager>
     public void SetNextStory()
     {
         Debug.Log(currentFlow);
+        
         currentFlow += 1;
 
         Debug.Log(currentFlow);
@@ -70,7 +70,7 @@ public class SceneFlowManager : InheritSingleton<SceneFlowManager>
 
     public void SetBehindName(string name)
     {
-        setBehindName = name;
+        setBehindName = name + "Behind";
     }
     public string GetBehindName()
     {

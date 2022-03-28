@@ -8,7 +8,7 @@ public class ImageChange : MonoBehaviour
     Sprite AfterClickImage;//바꾼 이미지
     Button button;
 
-    private bool open;
+    private bool isActive = true;
     GameObject button2;
 
     public float x;
@@ -20,53 +20,75 @@ public class ImageChange : MonoBehaviour
     void Start()
     {
         findStuffManager = GameObject.FindObjectOfType<FindStuffManager>().GetComponent<FindStuffManager>();
-
-
+        
         button2 = GameObject.Find("Button");
 
         button = gameObject.GetComponent<Button>();
-        string sth = gameObject.name+2;
-        AfterClickImage = Resources.Load<Sprite>("Image/FindStuff/"+ sth);
-
-        if(button.gameObject.CompareTag("ChangeImage"))
+        string sth = gameObject.name + 2;
+        AfterClickImage = Resources.Load<Sprite>("MiniGame/FindStuff/"+ sth);
+        
+        if (button.gameObject.CompareTag("ChangeImage"))
         {
             if(button.gameObject.name == "Lamp")
             {
                 button.onClick.AddListener(ButtonMove);
             }
-            button.onClick.AddListener(ChangeImage);
+            button.onClick.AddListener(()=> ChangeImage(gameObject));
         }
         else
             button.onClick.AddListener(ButtonMove);
     }
 
-    void ChangeImage()
+    void ChangeImage(GameObject obj)
     {
-        gameObject.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.01f;
-        gameObject.GetComponent<Image>().sprite = AfterClickImage; //이미지 바꾸기
+        if (!isActive)
+            return;
 
-
-        if (gameObject.name == "Lamp")
+        int num = findStuffManager.GetChancesLeft();
+        if (num == 0)
         {
-            Destroy(GameObject.Find("ClosedDoor"));
+            findStuffManager.ActiveRetryButton();
             return;
         }
 
-        if (gameObject.name == "Door")
+        obj.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.01f;
+        obj.GetComponent<Image>().sprite = AfterClickImage; //이미지 바꾸기
+        
+        if (obj.name == "Lamp")
+        {
+            button2.transform.GetChild(12).gameObject.SetActive(false);
+            return;
+        }
+
+        if (obj.name == "Door")
         {
             button2.transform.GetChild(11).gameObject.SetActive(true);
         }
 
         findStuffManager.SetChancesLeft(1);
+
+        isActive = false;
     }
 
     void ButtonMove()
     {
+        if (!isActive)
+            return;
+
+        int num = findStuffManager.GetChancesLeft();
+        if (num == 0)
+        {
+            findStuffManager.ActiveRetryButton();
+            return;
+        }
+
         gameObject.transform.position = new Vector2(x, y);
         if (gameObject.name == "Lamp")
         {
             return;
         }
         findStuffManager.SetChancesLeft(1);
+
+        isActive = false;
     }
 }

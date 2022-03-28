@@ -33,11 +33,11 @@ public class CharacterManager : MonoBehaviour
         if (dialogue[i].name == owner.tag)
         {
             owner.GetComponent<Image>().color = new Color(1, 1, 1, 1);  
-            customer.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);  // 손님 캐릭터 흑백화 
+            customer.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f, 1);  // 손님 캐릭터 흑백화 
         }
         else
         {
-            owner.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1);   // 주인장 캐릭터 흑백화 
+            owner.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f, 1);   // 주인장 캐릭터 흑백화 
             customer.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
     }
@@ -46,7 +46,7 @@ public class CharacterManager : MonoBehaviour
     {
         imageData = GameManager.Instance.GetCharacterData();
         Image customerImage = customer.GetComponent<Image>();
-
+        Debug.Log(imageData.Count);
         for (int i = 0; i < imageData.Count; i++)
         {
             if(imageData[i].name == stateName)
@@ -54,6 +54,7 @@ public class CharacterManager : MonoBehaviour
                 customerImage.sprite = imageData[i];
                 Color color = customerImage.color;
                 color.a = 1.0f;
+                customerImage.SetNativeSize();
                 return;
             }
         }

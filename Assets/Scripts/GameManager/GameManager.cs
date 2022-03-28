@@ -12,8 +12,12 @@ public class GameManager : InheritSingleton<GameManager>
 
     DialogueDatabase dialogueDatabase;
     IngredientDatabase ingredientDatabase;
+    PeopleDatabase peopleDatabase;
+    AddFrameIllrust script;
 
+    List<PeopleData> peopleData = new List<PeopleData>();
     List<Sprite> characterImageList = new List<Sprite>();
+    List<Sprite> backGroundImage = new List<Sprite>();
     Dictionary<string, DialogueData[]> dialogueDicData = new Dictionary<string, DialogueData[]>();
     Dictionary<string, List<IngredientData>> ingredientDicData = new Dictionary<string, List<IngredientData>>();
     Dictionary<string, string> ingreToTypeDicData = new Dictionary<string, string>();
@@ -42,11 +46,14 @@ public class GameManager : InheritSingleton<GameManager>
         //settingManager = GameObject.FindObjectOfType<SettingManager>().GetComponent<SettingManager>();
         dialogueDatabase = GetComponent<DialogueDatabase>();
         ingredientDatabase = GetComponent<IngredientDatabase>();
-
+        peopleDatabase = GetComponent<PeopleDatabase>();
+        
         LoadCharacterImageData();
+        LoadBackGroundImage();
         LoadDialogueData();
         LoadIngreToTypeData();
         LoadMakingAnswer();
+        LoadPeopleBookData();
         //LoadIngreData();
     }
 
@@ -135,7 +142,6 @@ public class GameManager : InheritSingleton<GameManager>
     // 재료이름으로 대단원 찾기
     public string GetFindIngreToType(string name)
     {
-        Debug.Log(name);
         if (name == null)  // 이름이 없으면 null값 반환
         {
             Debug.Log("이름이 없습니다.");
@@ -174,7 +180,7 @@ public class GameManager : InheritSingleton<GameManager>
     void LoadMakingAnswer()
     {
         TextAsset textFile = Resources.Load<TextAsset>("MakingRoom/IngredientData/Answer");  // Ingredient 정답표을 불러온다.
-
+        Debug.Log(textFile.name);
         ingredientDatabase.SaveData(textFile);
         
         List<Answer> answerData = ingredientDatabase.GetAnswerList();
@@ -211,11 +217,17 @@ public class GameManager : InheritSingleton<GameManager>
     void LoadDialogueData()
     {
         TextAsset[] textFiles = Resources.LoadAll<TextAsset>("Dialogue/Chapter1/Text");  // Resource/Dialogue 폴더에 있는 모든 파일들을 가져온다.
-
+        TextAsset[] behind = Resources.LoadAll<TextAsset>("Dialogue/Behind/Text");
         for (int i = 0; i < textFiles.Length; i++)
         {
             dialogueDatabase.SaveData(textFiles[i]);
             dialogueDicData.Add(textFiles[i].name, dialogueDatabase.GetDialogue());
+        }
+
+        for (int i = 0; i < textFiles.Length; i++)
+        {
+            dialogueDatabase.SaveData(behind[i]);
+            dialogueDicData.Add(behind[i].name, dialogueDatabase.GetDialogue());
         }
     }
 
@@ -241,12 +253,36 @@ public class GameManager : InheritSingleton<GameManager>
     }
 
     // 인물 관련 데이터 저장하는 함수
-    void LoadBookData()
+    void LoadPeopleBookData()
     {
-        TextAsset textFile = Resources.Load<TextAsset>("MakingRoom/IngredientData");  //  Resource/Dialogue 폴더에 있는 파일을 가져온다.
+        TextAsset textFile = Resources.Load<TextAsset>("WaitingRoom/PeopleBookData/People");  //  Resource/Dialogue 폴더에 있는 파일을 가져온다.
 
-        dialogueDatabase.SaveData(textFile);
-        dialogueDicData.Add(textFile.name, dialogueDatabase.GetDialogue());
+        peopleDatabase.SaveData(textFile);
+        peopleData = peopleDatabase.GetPeopleData();
+    }
+
+    // 타입에 따라 설명과 완벽한 레시피를 반환하는 함수
+    public string FindPeopleText(string storyName, string type)
+    {
+        if(type == "explain")
+        {
+            for (int i = 0; i < peopleData.Count; i++)
+            {
+                if (peopleData[i].name == storyName)
+                    return peopleData[i].explain;
+            }
+        }
+        else if(type == "PerfectRecipe")
+        {
+            for (int i = 0; i < peopleData.Count; i++)
+            {
+                if (peopleData[i].name == storyName)
+                    return peopleData[i].PerfectRecipe;
+            }
+        }
+
+        Debug.Log("FindPeopletext 오류");
+        return null;
     }
 
     // 인물 스프라이트 데이터 가져오는함수
@@ -266,9 +302,20 @@ public class GameManager : InheritSingleton<GameManager>
         return characterImageList;
     }
 
-   
+    // 배경 이미지 가져오는 함수
+    void LoadBackGroundImage()
+    {
+        Sprite[] sprite = Resources.LoadAll<Sprite>("Dialogue/Behind/BackGround");
+
+        for (int i = 0; i < sprite.Length; i++)
+        {
+            backGroundImage.Add(sprite[i]);
+        }
+    }
+
+    // 배경 이미지 반환하는 함수
+    public List<Sprite> GetBackGroundImageData()
+    {
+        return backGroundImage;
+    }
 }
-
-
-
-

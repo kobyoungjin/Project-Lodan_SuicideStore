@@ -26,7 +26,6 @@ public class ShowDialogue : MonoBehaviour
         database = GameObject.FindObjectOfType<DialogueDatabase>().GetComponent<DialogueDatabase>();
         btn = GetComponent<Button>();
 
-
         Transform dialogueBar = GameObject.Find("Dialogue_Bar").transform;
         npcText = dialogueBar.GetChild(0).GetComponent<TextMeshProUGUI>();
         npcName = dialogueBar.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -73,14 +72,14 @@ public class ShowDialogue : MonoBehaviour
             EndAndNextScene();
             return;
         }
-        else if (i == medicineSceneNum)  // 이름칸에 빈칸이 있으면
-        {
-            Debug.Log(medicineSceneNum);
-            clickNum = i + 1;
-            SceneFlowManager.Instance.SetSaveDialogueNum(clickNum);
-            //GameManager.Instance.LoadNextScene("MedicineScene", 1.0f);
-            return;
-        }
+        //else if (i == medicineSceneNum)  // 이름칸에 빈칸이 있으면
+        //{
+        //    Debug.Log(medicineSceneNum);
+        //    clickNum = i + 1;
+        //    SceneFlowManager.Instance.SetSaveDialogueNum(clickNum);
+        //    //GameManager.Instance.LoadNextScene("MedicineScene", 1.0f);
+        //    return;
+        //}
 
         npcName.text = dialogue[i].name;
 
@@ -122,10 +121,8 @@ public class ShowDialogue : MonoBehaviour
     private void EndAndNextScene()  
     {
         npcText.text = string.Empty;
-        SceneFlowManager.Instance.SetNextStory();
+        GameManager.Instance.LoadNextScene("MedicineScene", 1.0f);
         clickNum = 0;
-        currentState = SceneFlowManager.Instance.GetCurrentState();
-        SettingStory(currentState.ToString());
     }
 
     public List<DialogueData> GetCurrentDialogue()
@@ -140,7 +137,7 @@ public class ShowDialogue : MonoBehaviour
 
     public void skip()
     {
-        clickNum = medicineSceneNum;
+        clickNum = dialogue.Count-1;
         ShowText(clickNum);
     }
 
@@ -148,8 +145,21 @@ public class ShowDialogue : MonoBehaviour
     void SettingStory(string StateName)
     {
         dialogue.Clear();
+
+        if (SceneManager.GetActiveScene().name == "BehindDialogueScene")
+        {
+            List<Sprite> backGroundImage = GameManager.Instance.GetBackGroundImageData();
+            Image backGround = GameObject.Find("BackGround(Image)").GetComponent<Image>();
+            for (int i = 0; i < backGroundImage.Count; i++)
+            {
+                if (backGroundImage[i].name == StateName)
+                    backGround.sprite = backGroundImage[i];
+            }
+        }
+
         manager.ChooseCharacter(StateName);
         DialogueData[] dialogues = GameManager.Instance.GetStory(StateName);
+        Debug.Log(dialogues.Length);
         for (int i = 0; i < dialogues.Length; i++)
         {
             if (dialogues[i].name == "")
@@ -160,4 +170,5 @@ public class ShowDialogue : MonoBehaviour
             dialogue.Add(dialogues[i]);  //dialogue 리스트에 DatabaseManager에서 가져온 대사 추가
         }
     }
+    
 }

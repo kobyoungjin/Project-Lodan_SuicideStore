@@ -17,8 +17,11 @@ public class PeopleParser : MonoBehaviour
 
             PeopleData peopleData = new PeopleData(); // 대사 리스트 생성
 
+            if (row[0] == "name") continue;
+
             peopleData.name = row[0];
             peopleData.explain = row[1];
+            peopleData.PerfectRecipe = row[2];
 
             peopleDataList.Add(peopleData);
         }

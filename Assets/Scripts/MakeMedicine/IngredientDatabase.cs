@@ -12,6 +12,7 @@ public class IngredientDatabase : MonoBehaviour
     void Awake()
     {
         theParser = GetComponent<IngredientParser>();
+        answerParser = GetComponent<AnswerParser>();
     }
 
     public void SaveData(TextAsset csvFile)

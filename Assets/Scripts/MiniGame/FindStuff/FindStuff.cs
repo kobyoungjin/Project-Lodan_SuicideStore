@@ -21,7 +21,7 @@ public class FindStuff : MonoBehaviour
 
     void DestroyAndColorChange()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         sign.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         findStuffManager.SetFindStuffCount(1);
     }

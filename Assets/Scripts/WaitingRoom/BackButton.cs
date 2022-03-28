@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class BackButton : MonoBehaviour
@@ -23,8 +24,7 @@ public class BackButton : MonoBehaviour
         {
             GameManager.Instance.LoadNextScene("WaitingRoom", 1f);
         }
-
-        if(parent.name == "DetailBook")
+        else if(parent.name == "DetailBook")
         {
             parent.transform.GetChild(1).GetComponent<Image>().sprite = null;
             parent.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "##";
@@ -34,13 +34,27 @@ public class BackButton : MonoBehaviour
             illustratedBook.SetArrowInteract(true);
             illustratedBook.SetBackInteract(true);
         }
-
-        if(parent.name == "IngredientBook(Image)")
+        else if(parent.name == "IngredientBook(Image)")
         {
-            Book book = GameObject.FindObjectOfType<Book>().GetComponent<Book>();
-            book.SetInteractable(true);
+            if (SceneManager.GetActiveScene().name == "MedicineScene")
+            {
+                Debug.Log(SceneManager.GetActiveScene().name);
+
+                IngreBook ingreBook = GameObject.FindObjectOfType<IngreBook>().GetComponent<IngreBook>();
+                GameObject storageUI = GameObject.Find("Storage").transform.GetChild(3).gameObject;
+
+                for (int i = 0; i < storageUI.transform.childCount; i++)
+                {
+                    storageUI.transform.GetChild(i).GetComponent<Button>().interactable = true;
+                }
+                ingreBook.Setinteract(true);
+            }
+            else
+            {
+                Book book = GameObject.FindObjectOfType<Book>().GetComponent<Book>();
+                book.SetInteractable(true);
+            }
         }
-           
 
         parent.SetActive(false);
     }

@@ -7,7 +7,7 @@ public struct PeopleData
 {
     public string name;
     public string explain;
-    public string recipe;
+    public string PerfectRecipe;
 }
 
 [System.Serializable]

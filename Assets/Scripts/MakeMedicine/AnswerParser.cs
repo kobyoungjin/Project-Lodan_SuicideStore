@@ -18,12 +18,16 @@ public class AnswerParser : MonoBehaviour
             if (row[0] == "스토리")
                 continue;
 
+            List<string> temp = new List<string>();
             answer.name = row[0];
-            for (int j = 0; j < row.Length; j++)
+            for (int j = 0; j < 5; j++)
             {
-                answer.emotion[j + 1] = row[j + 1];
+                temp.Add(row[j + 1]);
             }
+            answer.emotion = temp.ToArray();
+
+            answerList.Add(answer);
         }
-        return answerList.ToArray();   // ingredient 리스트 형태로 반환
+        return answerList.ToArray();   // array 형태로 반환
     }
 }
