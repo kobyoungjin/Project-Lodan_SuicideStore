@@ -13,10 +13,11 @@ public class GameManager : InheritSingleton<GameManager>
     DialogueDatabase dialogueDatabase;
     IngredientDatabase ingredientDatabase;
     PeopleDatabase peopleDatabase;
-    AddFrameIllrust script;
 
+    List<string> AddFrameCharacter = new List<string>();
     List<PeopleData> peopleData = new List<PeopleData>();
     List<Sprite> characterImageList = new List<Sprite>();
+    List<Sprite> FramecharacterImageList = new List<Sprite>();
     List<Sprite> backGroundImage = new List<Sprite>();
     Dictionary<string, DialogueData[]> dialogueDicData = new Dictionary<string, DialogueData[]>();
     Dictionary<string, List<IngredientData>> ingredientDicData = new Dictionary<string, List<IngredientData>>();
@@ -47,13 +48,14 @@ public class GameManager : InheritSingleton<GameManager>
         dialogueDatabase = GetComponent<DialogueDatabase>();
         ingredientDatabase = GetComponent<IngredientDatabase>();
         peopleDatabase = GetComponent<PeopleDatabase>();
-        
+
         LoadCharacterImageData();
         LoadBackGroundImage();
         LoadDialogueData();
         LoadIngreToTypeData();
         LoadMakingAnswer();
         LoadPeopleBookData();
+        LoadFrameCharacterData();
         //LoadIngreData();
     }
 
@@ -180,7 +182,6 @@ public class GameManager : InheritSingleton<GameManager>
     void LoadMakingAnswer()
     {
         TextAsset textFile = Resources.Load<TextAsset>("MakingRoom/IngredientData/Answer");  // Ingredient 정답표을 불러온다.
-        Debug.Log(textFile.name);
         ingredientDatabase.SaveData(textFile);
         
         List<Answer> answerData = ingredientDatabase.GetAnswerList();
@@ -302,6 +303,23 @@ public class GameManager : InheritSingleton<GameManager>
         return characterImageList;
     }
 
+    // 인물 액자 스프라이트 데이터 가져오는함수
+    void LoadFrameCharacterData()
+    {
+        Sprite[] sprite = Resources.LoadAll<Sprite>("WaitingRoom/PeopleBook");
+
+        for (int i = 0; i < sprite.Length; i++)
+        {
+            FramecharacterImageList.Add(sprite[i]);
+        }
+    }
+
+    // 인물 액자 스프라이트 리스트 Getter함수
+    public List<Sprite> GetFrameCharacterData()
+    {
+        return FramecharacterImageList;
+    }
+
     // 배경 이미지 가져오는 함수
     void LoadBackGroundImage()
     {
@@ -317,5 +335,17 @@ public class GameManager : InheritSingleton<GameManager>
     public List<Sprite> GetBackGroundImageData()
     {
         return backGroundImage;
+    }
+    
+    // 액자에 넣을 캐릭터 이름 설정하는 함수
+    public void SetAddFrameCharacter(string name)
+    {
+        AddFrameCharacter.Add(name);
+    }
+
+    // 캐릭터 반환하는 함수
+    public List<string> GetAddFrameCharacter()
+    {
+        return AddFrameCharacter;
     }
 }

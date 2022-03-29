@@ -159,7 +159,6 @@ public class ShowDialogue : MonoBehaviour
 
         manager.ChooseCharacter(StateName);
         DialogueData[] dialogues = GameManager.Instance.GetStory(StateName);
-        Debug.Log(dialogues.Length);
         for (int i = 0; i < dialogues.Length; i++)
         {
             if (dialogues[i].name == "")

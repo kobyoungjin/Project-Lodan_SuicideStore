@@ -14,19 +14,23 @@ public class IllustratedBook : MonoBehaviour
     GameObject people1;
     GameObject people2;
     List<Sprite> characterImageList;
+    List<string> addFrameCharacter;
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Title")
-            return;
-
         btn = GetComponent<Button>();
         characterImageList = GameManager.Instance.GetCharacterData();
+        addFrameCharacter = GameManager.Instance.GetAddFrameCharacter();
         detailBook = GameObject.Find("IllustratedBook(Canvas)").transform.GetChild(3).gameObject;
         canvas = GameObject.Find("IllustratedBook(Canvas)").transform;
         people1 = canvas.GetChild(1).gameObject;
         people2 = canvas.GetChild(2).gameObject;
-        
+
+        for (int i = 0; i < addFrameCharacter.Count; i++)
+        {
+            AddIllustrateCharacter(addFrameCharacter[i]);
+        }
+
         if (btn.name == "Left(Button)")  // 왼쪽 화살표
         {
             btn.onClick.AddListener(Left);
@@ -119,7 +123,7 @@ public class IllustratedBook : MonoBehaviour
     // 이야기가 끝났을때 액자에 인물을 추가하는 함수
     public void AddIllustrateCharacter(string characterName)
     {
-        List<Sprite> characterImageList = GameManager.Instance.GetCharacterData();
+        List<Sprite> characterImageList = GameManager.Instance.GetFrameCharacterData();
         Transform canvas = GameObject.Find("IllustratedBook(Canvas)").transform;
         GameObject people1 = canvas.GetChild(1).gameObject;
         GameObject people2 = canvas.GetChild(2).gameObject;
@@ -127,17 +131,13 @@ public class IllustratedBook : MonoBehaviour
         if (characterName == null || characterName == "") return;
 
         Sprite illustImage = null;
-
+        
         for (int i = 0; i < characterImageList.Count; i++)
         {
             if (characterImageList[i].name == characterName)
             {
                 illustImage = characterImageList[i];
-            }
-            else
-            {
-                Debug.Log("AddIllustrateCharacter함수 이미지 찾기오류");
-                return;
+                break;
             }
         }
 

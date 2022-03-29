@@ -29,6 +29,8 @@ public class SceneFlowManager : InheritSingleton<SceneFlowManager>
     SceneNumber currentFlow = SceneNumber.¸¶¾ß;
     int saveNumer = 1;
     string setBehindName;
+    
+
 
     protected override void Awake()
     {

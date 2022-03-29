@@ -23,8 +23,8 @@ public class FinishedDrug : MonoBehaviour
     
     void NextScene()
     {
+        GameManager.Instance.SetAddFrameCharacter(SceneFlowManager.Instance.GetCurrentState().ToString());
         SceneFlowManager.Instance.SetNextStory();
-        
         GameManager.Instance.LoadNextScene("WaitingRoom", 1.0f);
     }
 

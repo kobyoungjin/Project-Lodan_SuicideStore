@@ -46,7 +46,6 @@ public class CharacterManager : MonoBehaviour
     {
         imageData = GameManager.Instance.GetCharacterData();
         Image customerImage = customer.GetComponent<Image>();
-        Debug.Log(imageData.Count);
         for (int i = 0; i < imageData.Count; i++)
         {
             if(imageData[i].name == stateName)
